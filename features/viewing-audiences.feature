@@ -1,4 +1,4 @@
-Feature: User views audiences
+Feature: Viewing audiences on home page
 
   As a user who is interested in Thamesmead, I want to head to the front
   page of the "Discover Thamesmead" site and see a list of different
