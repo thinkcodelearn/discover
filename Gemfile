@@ -4,6 +4,8 @@ gem "sinatra"
 gem "haml"
 gem "sass"
 
+gem "puma"
+
 group :test do
   gem "cucumber"
   gem "rspec"
