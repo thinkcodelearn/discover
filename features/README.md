@@ -1,1 +1,2 @@
-This website documents the features for the Discover project for Trust Thamesmead.
+This website documents the Discover project for Trust Thamesmead.
+
