@@ -12,6 +12,10 @@ test/tmp
 test/version_tmp
 tmp
 
+.sass-cache
+capybara-*.html
+
+
 # YARD artifacts
 .yardoc
 _yardoc

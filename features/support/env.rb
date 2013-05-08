@@ -1,5 +1,7 @@
 $: << 'lib'
 
+require 'bundler/setup'
+
 require 'sinatra'
 require 'capybara/cucumber'
 
