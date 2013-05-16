@@ -4,7 +4,6 @@ require 'bundler/setup'
 
 require 'sinatra'
 require 'capybara/cucumber'
-require 'mongoid'
 
 Sinatra::Application.environment = :test
 Bundler.require :default, Sinatra::Application.environment
@@ -24,8 +23,6 @@ rescue NameError
   raise "You need to add database_cleaner to your Gemfile (in the :test group) if you wish to use it."
 end
 
-Mongoid.configure do |config|
-  config.master = Mongo::Connection.from_uri("mongodb://localhost:27017").db('discover_test')
-end
+Mongoid.load!("config/mongoid.yml")
 
 Capybara.app = Discover::App::Frontend

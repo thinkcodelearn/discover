@@ -1,0 +1,18 @@
+development:
+  sessions:
+    default:
+      hosts:
+      - localhost:27017
+      database: discover_development
+
+test:
+  sessions:
+    default:
+      hosts:
+      - localhost:27017
+      database: discover_test
+
+production:
+  sessions:
+    default:
+      uri: <%= ENV['MONGOID_URL'] %>

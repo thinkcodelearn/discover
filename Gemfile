@@ -6,7 +6,7 @@ gem "sass"
 gem 'json', '~> 1.7.7'
 
 gem 'bson_ext'
-gem 'mongoid', '~> 2.0'
+gem 'mongoid', '~> 3.0'
 
 gem "puma"
 
