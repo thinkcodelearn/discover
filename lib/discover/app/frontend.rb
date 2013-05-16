@@ -1,5 +1,4 @@
 require 'haml'
-require 'sass'
 
 module Discover
   module App

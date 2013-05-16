@@ -2,7 +2,7 @@
   %h1.page-header Discover Thamesmead
   .row-fluid
     .span4.offset1
-      = @audiences.each do |audience|
+      - @audiences.each do |audience|
         .well.audience= audience.description
     .span4.offset1
       %img{:src => '/img/discover/visitor-guide.png'}
