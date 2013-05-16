@@ -15,4 +15,7 @@ test:
 production:
   sessions:
     default:
-      uri: <%= ENV['MONGOID_URL'] %>
+      uri: <%= ENV['MONGOHQ_URL'] %>
+      options:
+        skip_version_check: true
+        safe: true
