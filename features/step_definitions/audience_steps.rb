@@ -11,8 +11,9 @@ Then(/^I see the list of audiences clearly displayed for me to select from$/) do
 end
 
 Given(/^an audience "(.*?)" with these associated topics:$/) do |audience_name, table|
-  topics = table.raw.map do |row|
-    Topic.new(row.first)
+  pending
+  topic_changes = table.raw.map do |row|
+    Discover::Changes::TopicCreated.new(row.first)
   end
-  @audience = Discover::Audience.new(audience_name, topics)
+  Discover::AudienceRepository.new.apply([ Discover::Changes::AudienceCreated.new(audience_name) ] + topic_changes)
 end
