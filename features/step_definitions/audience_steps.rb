@@ -1,4 +1,4 @@
-Given(/^the site has the following audiences:$/) do |table|
+Given(/^the site has the following example audiences:$/) do |table|
   @audiences = table.raw.map { |row| Discover::Audience.new(row.first) }
   Discover::AudienceRepository.new.apply(@audiences.map {|a| Discover::Changes::AudienceCreated.new(a) })
 end
@@ -9,7 +9,7 @@ Then(/^I see the list of audiences clearly displayed for me to select from$/) do
   end
 end
 
-Given(/^an audience "(.*?)" with these associated topics:$/) do |description, table|
+Given(/^an example audience "(.*?)" with these associated topics:$/) do |description, table|
   @topics = table.raw.map { |row| Discover::Topic.new(row.first) }
   @audience = Discover::Audience.new(description)
 

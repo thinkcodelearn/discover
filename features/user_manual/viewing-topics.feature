@@ -5,7 +5,7 @@ Feature: Choosing an audience and viewing topics
   might be most interested in.
 
   Scenario:
-    Given an audience "I am looking for work" with these associated topics:
+    Given an example audience "I am looking for work" with these associated topics:
       | Job Centres          |
       | Recruitment Agencies |
       | Post Offices         |

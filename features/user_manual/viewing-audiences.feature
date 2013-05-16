@@ -8,7 +8,7 @@ Feature: Viewing audiences on home page
   information the site wants to offer me.
 
   Scenario: User visits homepage
-    Given the site has the following audiences:
+    Given the site has the following example audiences:
       | I want to go out in Thamesmead      |
       | I want to do something with my kids |
       | I am looking for work               |
