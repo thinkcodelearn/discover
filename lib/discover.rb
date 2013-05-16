@@ -1,4 +1,5 @@
-#require 'discover/action'
-#require 'discover/repositories'
+require 'discover/audience'
+require 'discover/changes'
 
 require 'discover/app/frontend'
+require 'discover/persisted/audience'

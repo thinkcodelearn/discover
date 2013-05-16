@@ -2,13 +2,7 @@
   %h1.page-header Discover Thamesmead
   .row-fluid
     .span4.offset1
-      .well.audience
-        I want to go out in Thamesmead
-      .well.audience
-        I want to do something with my kids
-      .well.audience
-        I am looking for work
-      .well.audience
-        I want to move to Thamesmead
+      = @audiences.each do |audience|
+        .well.audience= audience.description
     .span4.offset1
       %img{:src => '/img/discover/visitor-guide.png'}

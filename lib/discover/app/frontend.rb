@@ -6,6 +6,10 @@ module Discover
     class Frontend < Sinatra::Application
       set :views, %w{views}
 
+      before do
+        @audience_repository = Discover::AudienceRepository.new
+      end
+
       helpers do
         def find_template(views, name, engine, &block)
           Array(views).each { |v| super(v, name, engine, &block) }
@@ -13,6 +17,7 @@ module Discover
       end
 
       get '/' do
+        @audiences = @audience_repository.active
         haml :index
       end
 
