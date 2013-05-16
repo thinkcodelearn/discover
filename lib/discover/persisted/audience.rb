@@ -5,6 +5,7 @@ module Discover
       include Mongoid::Timestamps
 
       field :description
+      field :slug
 
       def domain_object
         Discover::Audience.new(description).freeze
@@ -14,7 +15,10 @@ module Discover
 
   class AudienceRepository
     def audience_created(change)
-      Persisted::Audience.create!(description: change.description).domain_object
+      Persisted::Audience.create!(
+        description: change.audience.description,
+        slug: change.audience.slug
+      )
     end
 
     def apply(changes)

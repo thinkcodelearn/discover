@@ -9,8 +9,9 @@ require 'discover/persisted/audience'
 module Discover
   describe AudienceRepository do
     it "creates new audiences when receiving the correct change command" do
-      subject.audience_created(Changes::AudienceCreated.new("description")).should be_an(Audience)
-
+      audience = Discover::Audience.new("description")
+      subject.audience_created(Changes::AudienceCreated.new(audience))
+      subject.active.should == [audience]
     end
   end
 end

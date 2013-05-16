@@ -1,4 +1,3 @@
-@pending
 Feature: Choosing an audience and viewing topics
 
   After I've looked at the audience list, I want to click on the

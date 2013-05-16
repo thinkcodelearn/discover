@@ -1,3 +1,3 @@
 module Discover
-  Audience = Struct.new :description, :topics
+  Audience = Struct.new :description, :slug, :topics
 end

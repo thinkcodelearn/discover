@@ -13,7 +13,11 @@ module Discover
       end
     end
 
-    class AudienceCreated < Struct.new(:description)
+    class AudienceCreated < Struct.new(:audience)
+      include Changes
+    end
+
+    class TopicCreated < Struct.new(:name)
       include Changes
     end
   end

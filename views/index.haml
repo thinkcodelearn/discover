@@ -3,6 +3,7 @@
   .row-fluid
     .span4.offset1
       - @audiences.each do |audience|
-        .well.audience= audience.description
+        .well.audience
+          %a{:href => "/#{audience.slug}"}= audience.description
     .span4.offset1
       %img{:src => '/img/discover/visitor-guide.png'}

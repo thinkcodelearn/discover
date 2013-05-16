@@ -1,7 +1,10 @@
-Topic = Struct.new :name
+module Discover
+  Topic = Struct.new :name
+end
 
 Given(/^the site has the following audiences:$/) do |table|
-  Discover::AudienceRepository.new.apply(table.raw.map { |row| Discover::Changes::AudienceCreated.new(row.first) })
+  @audiences = table.raw.map { |row| Discover::Audience.new(row.first) }
+  Discover::AudienceRepository.new.apply(@audiences.map {|a| Discover::Changes::AudienceCreated.new(a) })
 end
 
 Then(/^I see the list of audiences clearly displayed for me to select from$/) do
@@ -10,10 +13,10 @@ Then(/^I see the list of audiences clearly displayed for me to select from$/) do
   end
 end
 
-Given(/^an audience "(.*?)" with these associated topics:$/) do |audience_name, table|
-  pending
-  topic_changes = table.raw.map do |row|
-    Discover::Changes::TopicCreated.new(row.first)
-  end
-  Discover::AudienceRepository.new.apply([ Discover::Changes::AudienceCreated.new(audience_name) ] + topic_changes)
+Given(/^an audience "(.*?)" with these associated topics:$/) do |description, table|
+  @topics = table.raw.map { |row| Discover::Topic.new(row.first) }
+  audience_creation = Discover::Changes::AudienceCreated.new(Discover::Audience.new(description))
+  topic_changes = @topics.map { |t| Discover::Changes::TopicCreated.new(t) }
+
+  Discover::AudienceRepository.new.apply([ audience_creation ] + topic_changes)
 end
