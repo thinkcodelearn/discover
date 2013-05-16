@@ -1,3 +1,7 @@
+require 'bundler/setup'
+
+Bundler.require :default
+
 task :spec do
   sh 'rspec'
 end

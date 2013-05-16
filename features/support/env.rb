@@ -1,4 +1,5 @@
 $: << 'lib'
+$: << 'spec'
 
 require 'bundler/setup'
 require 'sinatra'
@@ -6,7 +7,7 @@ require 'sinatra'
 Sinatra::Application.environment = :test
 Bundler.require :default, Sinatra::Application.environment
 
-Mongoid.load!("config/mongoid.yml")
+require 'mongoid_helper'
 
 require 'capybara/cucumber'
 
