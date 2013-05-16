@@ -20,6 +20,11 @@ module Discover
         haml :index
       end
 
+      get '/:audience_slug/?' do |slug|
+        @audience = @audience_repository.from_slug(slug)
+        haml :audience
+      end
+
       get '/css/screen.css' do
         scss :screen
       end

@@ -1,9 +1,8 @@
 module Discover
-  class Audience < Struct.new(:description, :slug, :topics)
+  class Topic < Struct.new(:name, :slug)
     def initialize(*)
       super
-      self.slug ||= sluggify(description)
-      self.topics ||= []
+      self.slug ||= sluggify(name)
     end
 
     def sluggify(string)

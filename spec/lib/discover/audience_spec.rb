@@ -8,5 +8,9 @@ module Discover
       expect(Audience.new('description', 'specified-slug').slug).to eq('specified-slug')
       expect(Audience.new('I am looking for work').slug).to eq('i-am-looking-for-work')
     end
+
+    it 'initialises topics to an empty array if nil' do
+      expect(Audience.new('description').topics).to eq([])
+    end
   end
 end

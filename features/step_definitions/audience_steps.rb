@@ -1,7 +1,3 @@
-module Discover
-  Topic = Struct.new :name
-end
-
 Given(/^the site has the following audiences:$/) do |table|
   @audiences = table.raw.map { |row| Discover::Audience.new(row.first) }
   Discover::AudienceRepository.new.apply(@audiences.map {|a| Discover::Changes::AudienceCreated.new(a) })
@@ -15,8 +11,12 @@ end
 
 Given(/^an audience "(.*?)" with these associated topics:$/) do |description, table|
   @topics = table.raw.map { |row| Discover::Topic.new(row.first) }
-  audience_creation = Discover::Changes::AudienceCreated.new(Discover::Audience.new(description))
-  topic_changes = @topics.map { |t| Discover::Changes::TopicCreated.new(t) }
+  @audience = Discover::Audience.new(description)
 
-  Discover::AudienceRepository.new.apply([ audience_creation ] + topic_changes)
+  audience_change = Discover::Changes::AudienceCreated.new(@audience)
+  topic_changes =
+    @topics.map { |t| Discover::Changes::TopicCreated.new(t) } +
+    @topics.map { |t| Discover::Changes::TopicAttachedToAudience.new(@audience, t) }
+
+  Discover::AudienceRepository.new.apply([ audience_change ] + topic_changes)
 end

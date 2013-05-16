@@ -17,7 +17,11 @@ module Discover
       include Changes
     end
 
-    class TopicCreated < Struct.new(:name)
+    class TopicCreated < Struct.new(:topic)
+      include Changes
+    end
+
+    class TopicAttachedToAudience < Struct.new(:audience, :topic)
       include Changes
     end
   end

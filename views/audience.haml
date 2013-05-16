@@ -1,0 +1,7 @@
+.container
+  %h1.page-header== Discover Thamesmead - #{@audience.description}
+  .row-fluid
+    - @audience.topics.each do |topic|
+      .span2
+        .well.topic
+          %a{:href => topic.slug}= topic.name
