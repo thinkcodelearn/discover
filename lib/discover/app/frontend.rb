@@ -16,7 +16,7 @@ module Discover
       end
 
       get '/' do
-        @audiences = @audience_repository.active
+        @audiences = @repository.active_audiences
         haml :index
       end
 

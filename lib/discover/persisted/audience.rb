@@ -59,8 +59,7 @@ module Discover
       Persisted::Topic.all.map(&:domain_object)
     end
 
-    # FIXME: rename
-    def active
+    def active_audiences
       Persisted::Audience.all.map(&:domain_object)
     end
 

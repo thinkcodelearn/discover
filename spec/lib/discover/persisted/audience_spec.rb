@@ -22,7 +22,7 @@ module Discover
 
     it "creates new audiences when receiving the correct change command" do
       create_audience!
-      expect(subject.active).to eq [audience]
+      expect(subject.active_audiences).to eq [audience]
     end
 
     it "finds audiences by slug" do

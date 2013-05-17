@@ -4,7 +4,7 @@ Given(/^the site has the following example audiences:$/) do |table|
 end
 
 Then(/^I see the list of audiences clearly displayed for me to select from$/) do
-  Discover::AudienceRepository.new.active.each do |audience|
+  Discover::AudienceRepository.new.active_audiences.each do |audience|
     page.should have_css(".audience", text: audience.description)
   end
 end
