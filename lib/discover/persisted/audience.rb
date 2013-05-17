@@ -1,5 +1,7 @@
 module Discover
   NoAudienceFoundError = Class.new(Exception)
+  NoTopicFoundError = Class.new(Exception)
+  NothingFoundForSlugError = Class.new(Exception)
 
   module Persisted
     class Audience
@@ -67,6 +69,22 @@ module Discover
       Persisted::Audience.find_by(slug: slug).domain_object
     rescue Mongoid::Errors::DocumentNotFound
       raise NoAudienceFoundError
+    end
+
+    def topic_from_slug(slug)
+      Persisted::Topic.find_by(slug: slug).domain_object
+    rescue Mongoid::Errors::DocumentNotFound
+      raise NoTopicFoundError
+    end
+
+    def from_slug(slug)
+      begin
+        audience_from_slug(slug)
+      rescue NoAudienceFoundError
+        topic_from_slug(slug)
+      end
+    rescue NoTopicFoundError
+      raise NothingFoundForSlugError
     end
   end
 end

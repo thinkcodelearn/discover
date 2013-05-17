@@ -33,6 +33,24 @@ module Discover
       expect(subject.audience_from_slug(audience.slug)).to eq audience
     end
 
+    it "finds topics by slug" do
+      expect { subject.topic_from_slug(topic.slug) }.to raise_error(NoTopicFoundError)
+
+      create_topic!
+
+      expect(subject.topic_from_slug(topic.slug)).to eq topic
+    end
+
+    it "finds anything via a slug" do
+      expect { subject.from_slug(topic.slug) }.to raise_error(NothingFoundForSlugError)
+      create_topic!
+      expect(subject.from_slug(topic.slug)).to eq topic
+
+      expect { subject.from_slug(audience.slug) }.to raise_error(NothingFoundForSlugError)
+      create_audience!
+      expect(subject.from_slug(audience.slug)).to eq audience
+    end
+
     it "creates topics" do
       create_topic!
       expect(subject.topics).to eq [topic]

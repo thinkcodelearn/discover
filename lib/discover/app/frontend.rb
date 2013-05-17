@@ -6,7 +6,7 @@ module Discover
       set :views, %w{views}
 
       before do
-        @audience_repository = Discover::AudienceRepository.new
+        @repository = Discover::AudienceRepository.new
       end
 
       helpers do
@@ -20,9 +20,16 @@ module Discover
         haml :index
       end
 
-      get '/:audience_slug/?' do |slug|
-        @audience = @audience_repository.audience_from_slug(slug)
-        haml :audience
+      get '/:slug/?' do |slug|
+        @thing = @repository.from_slug(slug)
+        # FIXME: remove conditional
+        if @thing.is_a?(Audience)
+          @audience = @thing
+          haml :audience
+        else
+          @topic = @thing
+          haml :topic
+        end
       end
 
       get '/css/screen.css' do

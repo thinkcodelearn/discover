@@ -16,3 +16,7 @@ Given(/^an example topic "(.*?)" with these example places:$/) do |topic, table|
   place_changes = @places.map { |p| Discover::Changes::PlaceAddedToTopic.new(@topic, p) }
   Discover::AudienceRepository.new.apply([ topic_change ] + place_changes)
 end
+
+When(/^I view the "(.*?)" topic$/) do |topic|
+  visit '/' + Discover::Topic.new(topic).slug
+end
