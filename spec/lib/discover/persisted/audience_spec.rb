@@ -26,11 +26,11 @@ module Discover
     end
 
     it "finds audiences by slug" do
-      expect { subject.from_slug(audience.slug) }.to raise_error(NoAudienceFoundError)
+      expect { subject.audience_from_slug(audience.slug) }.to raise_error(NoAudienceFoundError)
 
       create_audience!
 
-      expect(subject.from_slug(audience.slug)).to eq audience
+      expect(subject.audience_from_slug(audience.slug)).to eq audience
     end
 
     it "creates topics" do
@@ -42,7 +42,7 @@ module Discover
       create_audience!
       create_topic!
       subject.topic_attached_to_audience(Changes::TopicAttachedToAudience.new(audience, topic))
-      expect(subject.from_slug(audience.slug).topics).to eq [topic]
+      expect(subject.audience_from_slug(audience.slug).topics).to eq [topic]
     end
   end
 end

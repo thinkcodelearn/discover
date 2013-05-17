@@ -64,7 +64,7 @@ module Discover
       Persisted::Audience.all.map(&:domain_object)
     end
 
-    def from_slug(slug)
+    def audience_from_slug(slug)
       Persisted::Audience.find_by(slug: slug).domain_object
     rescue Mongoid::Errors::DocumentNotFound
       raise NoAudienceFoundError

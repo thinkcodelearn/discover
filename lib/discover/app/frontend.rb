@@ -21,7 +21,7 @@ module Discover
       end
 
       get '/:audience_slug/?' do |slug|
-        @audience = @audience_repository.from_slug(slug)
+        @audience = @audience_repository.audience_from_slug(slug)
         haml :audience
       end
 
