@@ -6,10 +6,10 @@ Feature: Choosing a topic and viewing places
 
   Scenario:
     Given an example topic "Job Centres" with these example places:
-      | Name                    | Address                        | Location           |
-      | Job Centre Shirley St   | Shirley St, Thamesmead, E3 4AA | 51.12345, -0.53943 |
-      | Job Centre Evans Rd     | Evans Rd, Thamesmead, E3 4BB   | 51.12345, -0.53943 |
-      | Job Centre Rotham Place | Rotham Pl, Thamesmead, E3 4CC  | 51.12345, -0.53943 |
+      | Name                    | Information                    | Location           |
+      | Job Centre Shirley St   | Shirley St\nThamesmead\nE3 4AA | 51.12345, -0.53943 |
+      | Job Centre Evans Rd     | Evans Rd\nThamesmead\nE3 4BB   | 51.12345, -0.53943 |
+      | Job Centre Rotham Place | Rotham Pl\nThamesmead\nE3 4CC  | 51.12345, -0.53943 |
     When I view the "Job Centres" topic
     Then I can see a map showing all the different places above
     And I can see basic information about each place

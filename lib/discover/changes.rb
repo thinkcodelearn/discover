@@ -24,5 +24,9 @@ module Discover
     class TopicAttachedToAudience < Struct.new(:audience, :topic)
       include Changes
     end
+
+    class PlaceAddedToTopic < Struct.new(:topic, :place)
+      include Changes
+    end
   end
 end
