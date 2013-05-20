@@ -1,12 +1,23 @@
 .container
-  %h1.page-header== Discover Thamesmead - #{@topic.name}
+  %div{:style => 'height: 20px'}
   .row-fluid
-    .span9
+    .span8
+      %ul.nav.nav-tabs
+        %li.active
+          %a Youth
+        %li
+          %a Schools
+        %li
+          %a Groups
+        %li
+          %a Activities
+        %li
+          %a Transport
       %script{:src => 'http://openlayers.org/api/OpenLayers.js'}
       #map
       :css
         #map {
-          height: 500px;
+          height: 650px;
           opacity: 0.8;
         }
         img.olTileImage {
@@ -28,5 +39,16 @@
             new OpenLayers.Projection("EPSG:4326"),
               map.getProjectionObject()), 14);
         });
-    .span3
-      hello
+    .span4
+      %h3== Discover Thamesmead
+
+      %form
+        .input-append
+          %input.input-xlarge{:type => "text", :placeholder => "What are you looking for?"}
+          %button.btn{:type => "button"}
+            %i.icon-search
+
+      .well
+        feature
+      .well{:style => "height: 400px"}
+        list of places
