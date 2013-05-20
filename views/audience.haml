@@ -9,7 +9,7 @@
     - @audience.topics.each do |topic|
       .span3
         .well.topic
-          %a{:href => topic.slug}= topic.name
+          %a{:href => topic_path(@audience, topic)}= topic.name
     .span3
       .well.topic
         %a Placeholder

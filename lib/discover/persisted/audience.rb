@@ -76,15 +76,5 @@ module Discover
     rescue Mongoid::Errors::DocumentNotFound
       raise NoTopicFoundError
     end
-
-    def from_slug(slug)
-      begin
-        audience_from_slug(slug)
-      rescue NoAudienceFoundError
-        topic_from_slug(slug)
-      end
-    rescue NoTopicFoundError
-      raise NothingFoundForSlugError
-    end
   end
 end

@@ -5,20 +5,25 @@ Then(/^I should see the topics I'm interested in$/) do
 end
 
 
-Given(/^an example topic "(.*?)" with these example places:$/) do |topic, table|
+Given(/^an example topic "(.*?)" within "(.*?)" with these example places:$/) do |topic, audience, table|
   @places = table.hashes.map do |row|
     lat, lng = row['Location'].split(', ')
     Discover::Place.new(row['Name'], row['Information'], lat, lng)
   end
   @topic = Discover::Topic.new(topic)
+  @audience = Discover::Audience.new(audience)
 
-  topic_change = Discover::Changes::TopicCreated.new(@topic)
+  changes = []
+  changes << Discover::Changes::AudienceCreated.new(@audience)
+  changes << Discover::Changes::TopicCreated.new(@topic)
+  changes << Discover::Changes::TopicAttachedToAudience.new(@audience, @topic)
+
   place_changes = @places.map { |p| Discover::Changes::PlaceAddedToTopic.new(@topic, p) }
-  Discover::AudienceRepository.new.apply([ topic_change ] + place_changes)
+  Discover::AudienceRepository.new.apply(changes + place_changes)
 end
 
-When(/^I view the "(.*?)" topic$/) do |topic|
-  visit '/' + Discover::Topic.new(topic).slug
+When(/^I view the "(.*?)" topic within "(.*?)"$/) do |topic, audience|
+  visit '/' + Discover::Audience.new(audience).slug + '/' + Discover::Topic.new(topic).slug
 end
 
 Then(/^I can see a map showing all the different places above$/) do

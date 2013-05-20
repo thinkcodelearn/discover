@@ -3,16 +3,12 @@
   .row-fluid
     .span8
       %ul.nav.nav-tabs
-        %li.active
-          %a Job Centres
         %li
-          %a Post Offices
-        %li
-          %a Youth
-        %li
-          %a Activities
-        %li
-          %a Transport
+          %a{:href => '/'}
+            %i.icon-home
+        - @audience.topics.each do |topic|
+          %li{:class => "#{'active' if @topic == topic}"}
+            %a{:href => topic_path(@audience, topic)}= topic.name
       %script{:src => 'http://openlayers.org/api/OpenLayers.js'}
       #map
       :css

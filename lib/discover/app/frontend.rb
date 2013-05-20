@@ -45,6 +45,10 @@ module Discover
         def find_template(views, name, engine, &block)
           Array(views).each { |v| super(v, name, engine, &block) }
         end
+
+        def topic_path(audience, topic)
+          ['/', audience.slug, '/', topic.slug].join
+        end
       end
 
       get '/' do
@@ -52,20 +56,19 @@ module Discover
         haml :index
       end
 
-      get '/:slug/?' do |slug|
-        @thing = @repository.from_slug(slug)
-        # FIXME: remove conditional
-        if @thing.is_a?(Audience)
-          @audience = @thing
-          haml :audience
-        else
-          @topic = @thing
-          haml :topic
-        end
-      end
-
       get '/css/screen.css' do
         scss :screen
+      end
+
+      get '/:audience/?' do |slug|
+        @audience = @repository.audience_from_slug(slug)
+        haml :audience
+      end
+
+      get '/:audience/:topic?' do |audience, topic|
+        @audience = @repository.audience_from_slug(audience)
+        @topic = @repository.topic_from_slug(topic)
+        haml :topic
       end
     end
   end
