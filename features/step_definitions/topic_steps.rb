@@ -22,5 +22,5 @@ When(/^I view the "(.*?)" topic$/) do |topic|
 end
 
 Then(/^I can see a map showing all the different places above$/) do
-  page.should have_css(".map")
+  page.should have_css("#map")
 end
