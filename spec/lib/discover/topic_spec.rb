@@ -8,5 +8,9 @@ module Discover
       expect(Topic.new('name', 'specified-slug').slug).to eq('specified-slug')
       expect(Topic.new('job centRes!!').slug).to eq('job-centres--')
     end
+
+    it 'initialises places to an empty array if nil' do
+      expect(Topic.new('name').places).to eq([])
+    end
   end
 end

@@ -34,6 +34,9 @@
           map.setCenter(new OpenLayers.LonLat(0.1142, 51.5040).transform(
             new OpenLayers.Projection("EPSG:4326"),
               map.getProjectionObject()), 14);
+
+          var places = new OpenLayers.Layer.GeoRSS('DT places', '#{topic_path(@audience, @topic) + '.atom'}');
+          map.addLayer(places);
         });
     .span4
       %h3== Discover Thamesmead
@@ -46,5 +49,7 @@
 
       .well
         feature
-      .well{:style => "height: 400px"}
-        list of places
+      - @topic.places.each do |place|
+        .place
+          %h5= place.name
+          %p= place.information

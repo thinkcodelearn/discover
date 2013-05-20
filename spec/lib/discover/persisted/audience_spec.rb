@@ -3,6 +3,7 @@ require 'mongoid_helper'
 
 require 'discover/audience'
 require 'discover/topic'
+require 'discover/place'
 require 'discover/changes'
 
 require 'discover/persisted/audience'
@@ -11,6 +12,7 @@ module Discover
   describe AudienceRepository do
     let(:audience) { Discover::Audience.new("description") }
     let(:topic) { Discover::Topic.new("name") }
+    let(:place) { Discover::Place.new("name", "information", 50, -1) }
 
     def create_audience!
       subject.audience_created(Changes::AudienceCreated.new(audience))
@@ -51,6 +53,15 @@ module Discover
       create_topic!
       subject.topic_attached_to_audience(Changes::TopicAttachedToAudience.new(audience, topic))
       expect(subject.audience_from_slug(audience.slug).topics).to eq [topic]
+    end
+
+    it "adds places to topics" do
+      create_audience!
+      create_topic!
+      subject.topic_attached_to_audience(Changes::TopicAttachedToAudience.new(audience, topic))
+      subject.place_added_to_topic(Changes::PlaceAddedToTopic.new(topic, place))
+
+      expect(subject.topic_from_slug(topic.slug).places).to eq [place]
     end
   end
 end

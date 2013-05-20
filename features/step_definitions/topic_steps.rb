@@ -29,3 +29,9 @@ end
 Then(/^I can see a map showing all the different places above$/) do
   page.should have_css("#map")
 end
+
+Then(/^I can see basic information about each place$/) do
+  @places.each do |place|
+    page.should have_css(".place", text: place.name)
+  end
+end

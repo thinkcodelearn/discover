@@ -24,9 +24,14 @@ module Discover
       field :name
       field :slug
       has_and_belongs_to_many :audiences
+      field :places, type: Array, default: []
 
       def domain_object
-        Discover::Topic.new(name).freeze
+        Discover::Topic.new(name, slug, places_domain_object).freeze
+      end
+
+      def places_domain_object
+        places.map { |p| YAML.load(p) }
       end
     end
   end
@@ -51,6 +56,12 @@ module Discover
       audience = Persisted::Audience.find_by(slug: change.audience.slug)
       audience.topics << topic
       audience.save!
+    end
+
+    def place_added_to_topic(change)
+      topic = Persisted::Topic.find_by(slug: change.topic.slug)
+      topic.places << change.place.to_yaml
+      topic.save!
     end
 
     def apply(changes)

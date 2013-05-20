@@ -24,9 +24,9 @@ module Discover
           Discover::AudienceRepository.new.apply([ audience_change ] + topic_changes)
 
           places = [
-            {"Name" => "Job Centre Shirley St", "Information" => "Shirley St\nThamesmead\nE3 4AA", "Location" => "51.12345, -0.53943" },
-            {"Name" => "Job Centre Evans St", "Information" => "Shirley St\nThamesmead\nE3 4AA", "Location" => "51.12345, -0.53943" },
-            {"Name" => "Job Centre Row St", "Information" => "Shirley St\nThamesmead\nE3 4AA", "Location" => "51.12345, -0.53943" },
+            {"Name" => "Job Centre Shirley St", "Information" => "Shirley St\nThamesmead\nE3 4AA", "Location" => "51.5040, 0.1234" },
+            {"Name" => "Job Centre Evans St", "Information" => "Shirley St\nThamesmead\nE3 4AA", "Location" => "51.4990, 0.0999" },
+            {"Name" => "Job Centre Row St", "Information" => "Shirley St\nThamesmead\nE3 4AA", "Location" => "51.5111, 0.1199" },
           ]
 
           @places = places.map do |row|
@@ -65,7 +65,13 @@ module Discover
         haml :audience
       end
 
-      get '/:audience/:topic?' do |audience, topic|
+      get '/:audience/:topic.atom/?' do |audience, topic|
+        @audience = @repository.audience_from_slug(audience)
+        @topic = @repository.topic_from_slug(topic)
+        builder :topic
+      end
+
+      get '/:audience/:topic/?' do |audience, topic|
         @audience = @repository.audience_from_slug(audience)
         @topic = @repository.topic_from_slug(topic)
         haml :topic
