@@ -1,7 +1,18 @@
 .container
+  :css
+    .topic {
+      padding: 50px 10px;
+      text-align: center;
+    }
   %h1.page-header== Discover Thamesmead - #{@audience.description}
-  .row-fluid
+  .row-fluid{:style => "padding: 140px 20px; background-color: #ddd"}
     - @audience.topics.each do |topic|
-      .span2
+      .span3
         .well.topic
           %a{:href => topic.slug}= topic.name
+    .span3
+      .well.topic
+        %a Placeholder
+    .span3
+      .well.topic
+        %a Placeholder
