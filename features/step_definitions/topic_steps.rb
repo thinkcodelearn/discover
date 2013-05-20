@@ -20,3 +20,7 @@ end
 When(/^I view the "(.*?)" topic$/) do |topic|
   visit '/' + Discover::Topic.new(topic).slug
 end
+
+Then(/^I can see a map showing all the different places above$/) do
+  page.should have_css(".map")
+end
