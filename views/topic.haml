@@ -28,6 +28,7 @@
         }
       :javascript
         $(document).ready(function() {
+          $(".collapse").collapse();
           var map = new OpenLayers.Map('map');
           var layer = new OpenLayers.Layer.OSM("Simple OSM Map");
           map.addLayer(layer);
@@ -49,7 +50,27 @@
 
       .well
         feature
-      - @topic.places.each do |place|
-        .place
-          %h5= place.name
-          %p= place.information
+      %h3
+        = @topic.name
+      #places.accordion
+        - @topic.places.each_with_index do |place, index|
+          .place.accordion-group
+            %h5.accordion-heading.name
+              %a.accordion-toggle{:href => "#collapse#{index}", :'data-toggle' => 'collapse', :'data-parent' => '#places'}
+                %img.marker{:src => 'http://openlayers.org/api/img/marker.png'}
+                = place.name
+            %div{:id => "collapse#{index}", :class => "accordion-body collapse #{index != 0 ? 'in':''}"}
+              .accordion-inner
+                .address
+                  %strong= place.address
+                %p.information= place.information
+                .well.well-small.contact
+                  .telephone= place.telephone
+                  %a{:href => place.url}= place.url.length < 30 ? place.url : place.url[0, 30] + '...'
+                  %br
+                  %a{:href => "mailto:#{place.email}"}= place.email
+                  .social
+                    %a{:href => place.facebook} f
+                    %a{:href => place.twitter} t
+                    %a{:href => "mailto:#{place.email}"}
+                      %i.icon-envelope

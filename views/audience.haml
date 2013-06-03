@@ -6,13 +6,8 @@
     }
   %h1.page-header== Discover Thamesmead - #{@audience.description}
   .row-fluid{:style => "padding: 140px 20px; background-color: #ddd"}
+    .span1
     - @audience.topics.each do |topic|
-      .span3
+      .span2
         .well.topic
           %a{:href => topic_path(@audience, topic)}= topic.name
-    .span3
-      .well.topic
-        %a Placeholder
-    .span3
-      .well.topic
-        %a Placeholder
