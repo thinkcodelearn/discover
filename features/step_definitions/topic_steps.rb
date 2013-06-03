@@ -5,10 +5,20 @@ Then(/^I should see the topics I'm interested in$/) do
 end
 
 
-Given(/^an example topic "(.*?)" within "(.*?)" with these example places:$/) do |topic, audience, table|
-  @places = table.hashes.map do |row|
+Given(/^an example topic "(.*?)" within "(.*?)" with this example place:$/) do |topic, audience, table|
+  @places = table.transpose.hashes.map do |row|
     lat, lng = row['Location'].split(', ')
-    Discover::Place.new(row['Name'], row['Information'], lat, lng)
+    Discover::Place.new(
+      row['Name'],
+      row['Information'],
+      lat,
+      lng,
+      row['Address'],
+      row['Telephone'],
+      row['URL'],
+      row['E-mail'],
+      row['Facebook'],
+      row['Twitter'])
   end
   @topic = Discover::Topic.new(topic)
   @audience = Discover::Audience.new(audience)
@@ -26,12 +36,13 @@ When(/^I view the "(.*?)" topic within "(.*?)"$/) do |topic, audience|
   visit '/' + Discover::Audience.new(audience).slug + '/' + Discover::Topic.new(topic).slug
 end
 
-Then(/^I can see a map showing all the different places above$/) do
+Then(/^I can see a map showing the place above$/) do
   page.should have_css("#map")
 end
 
-Then(/^I can see basic information about each place$/) do
+Then(/^I can see basic information about the place$/) do
   @places.each do |place|
-    page.should have_css(".place", text: place.name)
+    page.should have_css(".place .name", text: place.name)
+    page.should have_css(".place .address", text: place.address)
   end
 end

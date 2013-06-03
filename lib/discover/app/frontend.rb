@@ -9,35 +9,27 @@ module Discover
         @repository = Discover::AudienceRepository.new
         if @repository.active_audiences.empty?
           array = [
-            [ "Job Centres"],
-            [ "Post Offices"],
+            [ "Youth"],
+            [ "Schools"],
+            [ "Groups"],
+            [ "Activities"],
+            [ "Transport"],
           ]
 
           @topics = array.map { |row| Discover::Topic.new(row.first) }
-          @audience = Discover::Audience.new("I am looking for work")
+          @audience = Discover::Audience.new("I go to school in Thamesmead")
 
           audience_change = Discover::Changes::AudienceCreated.new(@audience)
           topic_changes =
             @topics.map { |t| Discover::Changes::TopicCreated.new(t) } +
             @topics.map { |t| Discover::Changes::TopicAttachedToAudience.new(@audience, t) }
 
-          Discover::AudienceRepository.new.apply([ audience_change ] + topic_changes)
+          @places = YAML.load(File.read(File.dirname(__FILE__) + "/../../../spec/fixtures/places.yml"))
+          p @places
 
-          places = [
-            {"Name" => "Job Centre Shirley St", "Information" => "Shirley St\nThamesmead\nE3 4AA", "Location" => "51.5040, 0.1234" },
-            {"Name" => "Job Centre Evans St", "Information" => "Shirley St\nThamesmead\nE3 4AA", "Location" => "51.4990, 0.0999" },
-            {"Name" => "Job Centre Row St", "Information" => "Shirley St\nThamesmead\nE3 4AA", "Location" => "51.5111, 0.1199" },
-          ]
+          place_changes = @places.map { |p| Discover::Changes::PlaceAddedToTopic.new(@topics.first, p) }
 
-          @places = places.map do |row|
-            lat, lng = row['Location'].split(', ')
-            Discover::Place.new(row['Name'], row['Information'], lat, lng)
-          end
-          @topic = Discover::Topic.new("Job Centres")
-
-          topic_change = Discover::Changes::TopicCreated.new(@topic)
-          place_changes = @places.map { |p| Discover::Changes::PlaceAddedToTopic.new(@topic, p) }
-          Discover::AudienceRepository.new.apply([ topic_change ] + place_changes)
+          Discover::AudienceRepository.new.apply([ audience_change ] + topic_changes + place_changes)
         end
       end
 

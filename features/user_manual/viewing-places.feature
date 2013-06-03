@@ -5,11 +5,16 @@ Feature: Choosing a topic and viewing places
   with a topic.
 
   Scenario:
-    Given an example topic "Job Centres" within "I am looking for work" with these example places:
-      | Name                    | Information                    | Location           |
-      | Job Centre Shirley St   | Shirley St\nThamesmead\nE3 4AA | 51.12345, -0.53943 |
-      | Job Centre Evans Rd     | Evans Rd\nThamesmead\nE3 4BB   | 51.12345, -0.53943 |
-      | Job Centre Rotham Place | Rotham Pl\nThamesmead\nE3 4CC  | 51.12345, -0.53943 |
+    Given an example topic "Job Centres" within "I am looking for work" with this example place:
+      | Name        | Job Centre Shirley St                              |
+      | Information | The information about the job centre in Shirley St |
+      | Address     | Shirley St, Thamesmead, E3 4AA                     |
+      | Telephone   | 020 8765 4242                                      |
+      | URL         | www.jobcentre.org                                  |
+      | E-mail      | hello@jobcentre.org                                |
+      | Facebook    | http://facebook.com/job-centre-shirley             |
+      | Twitter     | http://twitter.com/job-centre-shirley              |
+      | Location    | 51.12323, -0.1229                                  |
     When I view the "Job Centres" topic within "I am looking for work"
-    Then I can see a map showing all the different places above
-    And I can see basic information about each place
+    Then I can see a map showing the place above
+    And I can see basic information about the place

@@ -1,0 +1,34 @@
+---
+- !ruby/struct:Discover::Place
+  name: Sporting Club Thamesmead
+  information: Sporting Club Thamesmead is a brand-new, modern and welcoming community facility with a wide range of indoor and outdoor sporting activities teamed with superb social and leisure facilities at affordable prices.
+  lat: 51.5040
+  lng: 0.1234
+  address: 'Bayliss Avenue, Thamesmead London SE28 8NJ'
+  telephone: 020 8320 4470
+  url: "http://www.gothamesmead.org"
+  email: "hello@gothamesmead.org"
+  facebook: http://facebook.com/youthinthamesmead
+  twitter: http://twitter.com/youthinthamesmead
+- !ruby/struct:Discover::Place
+  name: Another Youth Activity
+  information: This is the largest youth activity in Thamesmead. This description box can be used for more free text as necessary.
+  lat: '51.4990'
+  lng: '0.0999'
+  address: 'Shirley St, Thamesmead, SE23 3XU'
+  telephone: 020 8465 2700
+  url: "http://www.londonnet.co.uk/listings/shopsamenities/jobcentres/jobcentreinthamesmead/"
+  email: youth@thamesmead.org.uk
+  facebook: http://facebook.com/youthinthamesmead
+  twitter: http://twitter.com/youthinthamesmead
+- !ruby/struct:Discover::Place
+  name: The Link Thamemead
+  information: Totally different placeholder text
+  lat: '51.5111'
+  lng: '0.1199'
+  address: 'Address goes here'
+  telephone: 020 8465 2700
+  url: "http://thelinkthamesmead.com"
+  email: thelink@thinkthamemead.org
+  facebook: http://facebook.com/thelink
+  twitter: http://twitter.com/thelink
