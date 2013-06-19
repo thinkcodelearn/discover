@@ -3,6 +3,85 @@
   }
 }
 
+body {
+  background: white;
+}
+
+.map-page {
+  padding: 20px;
+
+  .row-fluid {
+
+    .column {
+      position: fixed;
+      top: 20px;
+      bottom: 0px;
+
+      #map {
+        position: absolute;
+        top: 40px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .map-page {
+    padding: 20px 0px;
+  }
+  .column {
+    #map {
+      height: 500px !important;
+    }
+    position: relative !important;
+    height: 500px !important;
+    margin-top: 25px;
+  }
+  .right-column-heading {
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    margin: 0px !important;
+  }
+}
+
+.right-column
+{
+  padding: 0 20px;
+  position: absolute;
+  right: 0px;
+  background: white;
+  .right-column-heading {
+    position: fixed;
+    z-index: 5;
+    background: white;
+    width: 100%;
+    margin: -25px 0;
+  }
+
+  .right-column-content {
+    margin-top: 100px;
+  }
+}
+
+#map {
+  opacity: 0.8;
+
+  img.olTileImage {
+      max-width: none !important;
+  }
+  .olControlAttribution {
+      font-size: 0.8em;
+      right: 0.5em;
+      bottom: 0.5em;
+      position: absolute;
+      display: block;
+  }
+}
+
 .place {
   .marker {
     float: left;
