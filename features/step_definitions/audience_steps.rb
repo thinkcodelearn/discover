@@ -5,7 +5,7 @@ end
 
 Then(/^I see the list of audiences clearly displayed for me to select from$/) do
   Discover::AudienceRepository.new.active_audiences.each do |audience|
-    page.should have_css(".audience", text: audience.description)
+    should_have_audience audience.description
   end
 end
 
@@ -19,4 +19,18 @@ Given(/^an example audience "(.*?)" with these associated topics:$/) do |descrip
     @topics.map { |t| Discover::Changes::TopicAttachedToAudience.new(@audience, t) }
 
   Discover::AudienceRepository.new.apply([ audience_change ] + topic_changes)
+end
+
+
+When(/^I create an audience "(.*?)"$/) do |audience_name|
+  @audience_name = audience_name
+  visit '/admin'
+  click_link 'Create audience'
+  fill_in 'Audience description', :with => audience_name
+  click_button 'Create audience'
+end
+
+Then(/^the audience should be available for viewing on the main site$/) do
+  visit '/'
+  should_have_audience @audience_name
 end

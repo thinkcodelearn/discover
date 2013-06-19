@@ -2,8 +2,10 @@ require 'haml'
 
 module Discover
   module App
-    class Frontend < Sinatra::Application
+    class Frontend < Sinatra::Base
       set :views, %w{views}
+      set :static, true
+      set :public_folder, ::File.join(Dir.pwd, 'public')
 
       before do
         @repository = Discover::AudienceRepository.new

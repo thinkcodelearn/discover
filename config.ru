@@ -9,4 +9,4 @@ Mongoid.load!("config/mongoid.yml")
 
 require 'discover'
 
-run Discover::App::Frontend
+run new_app

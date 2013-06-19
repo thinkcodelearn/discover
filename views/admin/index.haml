@@ -1,0 +1,15 @@
+.container
+  %h1.page-header Discover Thamesmead: Admin
+  .row-fluid
+    .span2
+      %ul.nav.nav-list
+        %li.nav-header Audiences
+        %li
+          %a{:href =>'/admin/audiences/new'}
+            %i.icon-plus
+            New audience
+        -#- Collection.all.each do |collection|
+          -#%li
+            -#%a{:href => '/admin/collections/' + collection.slug}
+              -#%i.icon-file
+              -#= collection.title

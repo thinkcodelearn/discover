@@ -2,7 +2,7 @@ $: << 'lib'
 $: << 'spec'
 
 require 'bundler/setup'
-require 'sinatra'
+require 'sinatra/base'
 
 Sinatra::Application.environment = :test
 Bundler.require :default, Sinatra::Application.environment
@@ -13,4 +13,8 @@ require 'capybara/cucumber'
 
 require 'discover'
 
-Capybara.app = Discover::App::Frontend
+Capybara.app = new_app
+
+def should_have_audience(audience)
+  page.should have_css(".audience", text: audience)
+end

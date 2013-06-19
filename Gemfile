@@ -11,6 +11,7 @@ gem 'bson_ext'
 gem 'mongoid', '~> 3.0'
 
 gem "puma"
+gem "rack-usermanual"
 
 group :test do
   gem "cucumber", "~> 1.2.0"
