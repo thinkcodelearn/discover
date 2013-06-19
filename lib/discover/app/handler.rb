@@ -1,6 +1,8 @@
 module Discover
   module App
     class Handler < Struct.new(:app, :redirect_location)
+      include Reactor
+
       def success
         app.redirect app.to(redirect_location)
       end
@@ -17,10 +19,6 @@ module Discover
       def notice(message)
         app.flash[:notice] = message
         app.redirect app.to(redirect_location)
-      end
-
-      def apply(queue)
-        queue.map { |change| change.apply(self) }
       end
     end
   end

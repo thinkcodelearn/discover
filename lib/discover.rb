@@ -3,6 +3,7 @@ require 'discover/audience_validator'
 require 'discover/topic'
 require 'discover/place'
 require 'discover/changes'
+require 'discover/reactor'
 
 require 'discover/app/handler'
 require 'discover/app/admin/base'

@@ -14,19 +14,19 @@ module Discover
     it "returns audience creation changes if the audience has a description" do
       audience = Audience.new("new description")
       expect(subject.validate(audience)).
-        to eq([Changes::AudienceCreated.new(audience)])
+        to eq([Changes::ValidAudience.new(audience)])
     end
 
     it 'returns a creation error if there is no description' do
       audience = Audience.new
       expect(subject.validate(audience).first).
-        to be_a(Changes::CreationError)
+        to be_a(Changes::InvalidAudience)
     end
 
     it 'returns a creation error if the description is not unique' do
       audience = Audience.new('foo')
       expect(subject.validate(audience).first).
-        to be_a(Changes::CreationError)
+        to be_a(Changes::InvalidAudience)
     end
   end
 end

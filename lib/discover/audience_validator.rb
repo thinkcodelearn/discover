@@ -15,11 +15,11 @@ module Discover
         return error("There is already an audience with that description.")
       end
 
-      Changes::AudienceCreated.new(audience)
+      Changes::ValidAudience.new(audience)
     end
 
     def error(description)
-      Changes::CreationError.new(description)
+      Changes::InvalidAudience.new(description)
     end
   end
 end

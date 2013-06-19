@@ -40,3 +40,18 @@ end
 Then(/^I see an error telling me I can't create two audiences with the same description$/) do
   expect(page).to have_css(".alert-error")
 end
+
+When(/^I change the description of the audience "(.*?)" to "(.*?)"$/) do |old_description, new_description|
+  @new_description = new_description
+  basic_auth('discover', '')
+  visit '/admin'
+  click_link old_description
+  fill_in 'Audience description', :with => new_description
+  click_button 'Save changes'
+  expect(page).to have_css(".nav")
+end
+
+Then(/^the audience description should be updated on the main site$/) do
+  visit '/'
+  should_have_audience @new_description
+end

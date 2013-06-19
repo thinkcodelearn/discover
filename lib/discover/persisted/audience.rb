@@ -37,11 +37,19 @@ module Discover
   end
 
   class AudienceRepository
+    include Reactor
+
     def audience_created(change)
       Persisted::Audience.create!(
         description: change.audience.description,
         slug: change.audience.slug
       )
+    end
+
+    def audience_edited(change)
+      audience = Persisted::Audience.find_by(slug: change.slug)
+      audience.update_attributes(:description => change.audience.description)
+      audience.save!
     end
 
     def topic_created(change)
@@ -62,10 +70,6 @@ module Discover
       topic = Persisted::Topic.find_by(slug: change.topic.slug)
       topic.places << change.place.to_yaml
       topic.save!
-    end
-
-    def apply(changes)
-      changes.map { |c| c.apply(self) }
     end
 
     def topics
