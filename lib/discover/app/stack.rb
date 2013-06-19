@@ -6,11 +6,15 @@ def new_app
         username == 'discover' && password == ENV["ADMIN_PASSWORD"] || ''
       end
 
+      map "/audiences" do
+        use Discover::App::Admin::Audiences
+      end
+
       map "/help" do
         use Rack::Usermanual, :sections => { "Administrator manual" => "features/administrator-manual" }, :index => "features/administrator-manual/README.md"
       end
 
-      use Discover::App::Admin
+      use Discover::App::Admin::Base
     end
 
     map "/help" do

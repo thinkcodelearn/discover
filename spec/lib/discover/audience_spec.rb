@@ -12,5 +12,9 @@ module Discover
     it 'initialises topics to an empty array if nil' do
       expect(Audience.new('description').topics).to eq([])
     end
+
+    it 'initialises description to empty' do
+      expect(Audience.new.description).to eq('')
+    end
   end
 end

@@ -24,6 +24,7 @@ end
 
 When(/^I create an audience "(.*?)"$/) do |audience_name|
   @audience_name = audience_name
+  basic_auth('discover', '')
   visit '/admin'
   click_link 'Create audience'
   fill_in 'Audience description', :with => audience_name
