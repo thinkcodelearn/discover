@@ -11,10 +11,21 @@ module Discover
           haml :new
         end
 
+        class CreationHandler < Handler
+          def creation_error(change)
+            error(change.message)
+          end
+
+          def audience_created(change)
+            success
+          end
+        end
+
         post '/?' do
-          change = Discover::Changes::AudienceCreated.new(Audience.new(params[:object][:description]))
-          audience_repository.apply([change])
-          redirect('/admin/')
+          candidate = Audience.new(params[:object][:description])
+          queue = AudienceValidator.new(audience_repository.active_audiences.map(&:description)).validate(candidate)
+          audience_repository.apply(queue)
+          CreationHandler.new(self, '/').apply(queue).first
         end
       end
     end

@@ -22,7 +22,7 @@ Given(/^an example audience "(.*?)" with these associated topics:$/) do |descrip
 end
 
 
-When(/^I create an audience "(.*?)"$/) do |audience_name|
+When(/^I (?:try to )?create an(?:other)? audience "(.*?)"$/) do |audience_name|
   @audience_name = audience_name
   basic_auth('discover', '')
   visit '/admin'
@@ -34,4 +34,9 @@ end
 Then(/^the audience should be available for viewing on the main site$/) do
   visit '/'
   should_have_audience @audience_name
+end
+
+
+Then(/^I see an error telling me I can't create two audiences with the same description$/) do
+  expect(page).to have_css(".alert-error")
 end

@@ -28,5 +28,9 @@ module Discover
     class PlaceAddedToTopic < Struct.new(:topic, :place)
       include Changes
     end
+
+    class CreationError < Struct.new(:message)
+      include Changes
+    end
   end
 end

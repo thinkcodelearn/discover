@@ -12,6 +12,7 @@ gem 'mongoid', '~> 3.0'
 
 gem "puma"
 gem "rack-usermanual"
+gem 'rack-flash3'
 
 group :test do
   gem "cucumber", "~> 1.2.0"
