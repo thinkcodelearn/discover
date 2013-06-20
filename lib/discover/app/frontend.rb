@@ -7,34 +7,6 @@ module Discover
       set :static, true
       set :public_folder, ::File.join(Dir.pwd, 'public')
 
-      before do
-        @repository = Discover::AudienceRepository.new
-        if @repository.active_audiences.empty?
-          array = [
-            [ "Youth"],
-            [ "Schools"],
-            [ "Groups"],
-            [ "Activities"],
-            [ "Transport"],
-          ]
-
-          @topics = array.map { |row| Discover::Topic.new(row.first) }
-          @audience = Discover::Audience.new("I go to school in Thamesmead")
-
-          audience_change = Discover::Changes::AudienceCreated.new(@audience)
-          topic_changes =
-            @topics.map { |t| Discover::Changes::TopicCreated.new(t) } +
-            @topics.map { |t| Discover::Changes::TopicAttachedToAudience.new(@audience, t) }
-
-          @places = YAML.load(File.read(File.dirname(__FILE__) + "/../../../spec/fixtures/places.yml"))
-          p @places
-
-          place_changes = @places.map { |p| Discover::Changes::PlaceAddedToTopic.new(@topics.first, p) }
-
-          Discover::AudienceRepository.new.apply([ audience_change ] + topic_changes + place_changes)
-        end
-      end
-
       helpers do
         def find_template(views, name, engine, &block)
           Array(views).each { |v| super(v, name, engine, &block) }
