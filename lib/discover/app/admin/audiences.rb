@@ -4,8 +4,8 @@ module Discover
   module App
     module Admin
       class Audiences < Admin::Base
-        set :views, %w{views/admin/audiences views/admin views}
-        set :method_override, true
+        include Crud
+        set :views, %w{views/admin/audiences views/admin}
 
         class AudienceHandler < Handler
           def invalid_audience(change)
@@ -42,6 +42,14 @@ module Discover
           end
         end
 
+        def creator
+          Creator.new
+        end
+
+        def editor(slug)
+          Editor.new(slug)
+        end
+
         def downstream(queue)
           repository.apply(queue)
           AudienceHandler.new(self, '/').apply(queue).first
@@ -69,32 +77,6 @@ module Discover
 
         def delete_change(slug)
           Changes::AudienceDeleted.new(slug)
-        end
-
-        get '/new/?' do
-          @object = create_blank
-          haml :new
-        end
-
-        get '/:slug/?' do |slug|
-          @object = find(slug)
-          haml :edit
-        end
-
-        post '/?' do
-          queue = validate(create_from_params(params))
-          queue += Creator.new.apply(queue)
-          downstream(queue)
-        end
-
-        post '/:slug/?' do |slug|
-          queue = validate(update_from_params(find(slug), params))
-          queue += Editor.new(slug).apply(queue)
-          downstream(queue)
-        end
-
-        delete '/:slug/?' do |slug|
-          downstream([delete_change(slug)])
         end
       end
     end

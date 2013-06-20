@@ -7,6 +7,7 @@ require 'discover/reactor'
 
 require 'discover/app/handler'
 require 'discover/app/admin/base'
+require 'discover/app/admin/crud'
 require 'discover/app/admin/audiences'
 require 'discover/app/frontend'
 require 'discover/app/stack'
