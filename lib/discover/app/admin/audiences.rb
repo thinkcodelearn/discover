@@ -13,7 +13,7 @@ module Discover
         end
 
         get '/:slug/?' do |slug|
-          @object = audience_repository.audience_from_slug(slug)
+          @object = repository.audience_from_slug(slug)
           haml :edit
         end
 
@@ -53,12 +53,12 @@ module Discover
         end
 
         def react(queue)
-          audience_repository.apply(queue)
+          repository.apply(queue)
           AudienceHandler.new(self, '/').apply(queue).first
         end
 
         def validate(candidate)
-          AudienceValidator.new(audience_repository.active_audiences.map(&:description)).validate(candidate)
+          AudienceValidator.new(repository.active_audiences.map(&:description)).validate(candidate)
         end
 
         post '/?' do
@@ -69,7 +69,7 @@ module Discover
         end
 
         post '/:slug/?' do |slug|
-          candidate = audience_repository.
+          candidate = repository.
             audience_from_slug(slug).
             with_description(params[:object][:description])
           queue = validate(candidate)

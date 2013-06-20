@@ -4,12 +4,12 @@ module Discover
   module App
     module Admin
       class Base < Sinatra::Base
-        def audience_repository
+        def repository
           @audience_repository ||= Discover::AudienceRepository.new
         end
 
         before do
-          @audiences = audience_repository.active_audiences
+          @audiences = repository.active_audiences
         end
 
         helpers do

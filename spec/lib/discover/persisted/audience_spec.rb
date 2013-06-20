@@ -5,6 +5,7 @@ require 'discover/audience'
 require 'discover/topic'
 require 'discover/place'
 require 'discover/changes'
+require 'discover/reactor'
 
 require 'discover/persisted/audience'
 
