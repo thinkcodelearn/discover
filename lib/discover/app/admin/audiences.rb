@@ -7,16 +7,6 @@ module Discover
         set :views, %w{views/admin/audiences views/admin views}
         set :method_override, true
 
-        get '/new/?' do
-          @object = Discover::Audience.new
-          haml :new
-        end
-
-        get '/:slug/?' do |slug|
-          @object = repository.audience_from_slug(slug)
-          haml :edit
-        end
-
         class AudienceHandler < Handler
           def invalid_audience(change)
             error(change.message)
@@ -36,7 +26,7 @@ module Discover
           end
         end
 
-        class AudienceCreator
+        class Creator
           include Reactor
 
           def valid_audience(change)
@@ -44,7 +34,7 @@ module Discover
           end
         end
 
-        class AudienceEditor < Struct.new(:slug)
+        class Editor < Struct.new(:slug)
           include Reactor
 
           def valid_audience(change)
@@ -52,7 +42,7 @@ module Discover
           end
         end
 
-        def react(queue)
+        def downstream(queue)
           repository.apply(queue)
           AudienceHandler.new(self, '/').apply(queue).first
         end
@@ -61,24 +51,50 @@ module Discover
           AudienceValidator.new(repository.active_audiences.map(&:description)).validate(candidate)
         end
 
+        def find(slug)
+          repository.audience_from_slug(slug)
+        end
+
+        def create_blank
+          Audience.new
+        end
+
+        def create_from_params(params)
+          Audience.new(params[:object][:description])
+        end
+
+        def update_from_params(object, params)
+          object.with_description(params[:object][:description])
+        end
+
+        def delete_change(slug)
+          Changes::AudienceDeleted.new(slug)
+        end
+
+        get '/new/?' do
+          @object = create_blank
+          haml :new
+        end
+
+        get '/:slug/?' do |slug|
+          @object = find(slug)
+          haml :edit
+        end
+
         post '/?' do
-          candidate = Audience.new(params[:object][:description])
-          queue = validate(candidate)
-          queue += AudienceCreator.new.apply(queue)
-          react(queue)
+          queue = validate(create_from_params(params))
+          queue += Creator.new.apply(queue)
+          downstream(queue)
         end
 
         post '/:slug/?' do |slug|
-          candidate = repository.
-            audience_from_slug(slug).
-            with_description(params[:object][:description])
-          queue = validate(candidate)
-          queue += AudienceEditor.new(slug).apply(queue)
-          react(queue)
+          queue = validate(update_from_params(find(slug), params))
+          queue += Editor.new(slug).apply(queue)
+          downstream(queue)
         end
 
         delete '/:slug/?' do |slug|
-          react([Changes::AudienceDeleted.new(slug)])
+          downstream([delete_change(slug)])
         end
       end
     end
