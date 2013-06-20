@@ -52,6 +52,10 @@ module Discover
       audience.save!
     end
 
+    def audience_deleted(change)
+      Persisted::Audience.find_by(slug: change.slug).destroy
+    end
+
     def topic_created(change)
       Persisted::Topic.create!(
         name: change.topic.name,

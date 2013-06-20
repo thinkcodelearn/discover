@@ -5,6 +5,7 @@ module Discover
     module Admin
       class Audiences < Admin::Base
         set :views, %w{views/admin/audiences views/admin views}
+        set :method_override, true
 
         get '/new/?' do
           @object = Discover::Audience.new
@@ -26,6 +27,11 @@ module Discover
           end
 
           def audience_edited(change)
+            success
+          end
+
+          def audience_deleted(change)
+            app.flash[:notice] = "The audience has been deleted."
             success
           end
         end
@@ -59,6 +65,12 @@ module Discover
           candidate = existing.with_description(params[:object][:description])
           queue = AudienceValidator.new(audience_repository.active_audiences.map(&:description)).validate(candidate)
           queue += AudienceEditor.new(slug).apply(queue)
+          audience_repository.apply(queue)
+          AudienceHandler.new(self, '/').apply(queue).first
+        end
+
+        delete '/:slug/?' do |slug|
+          queue = [Changes::AudienceDeleted.new(slug)]
           audience_repository.apply(queue)
           AudienceHandler.new(self, '/').apply(queue).first
         end

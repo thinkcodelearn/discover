@@ -48,10 +48,24 @@ When(/^I change the description of the audience "(.*?)" to "(.*?)"$/) do |old_de
   click_link old_description
   fill_in 'Audience description', :with => new_description
   click_button 'Save changes'
-  expect(page).to have_css(".nav")
+  should_be_success
 end
 
 Then(/^the audience description should be updated on the main site$/) do
   visit '/'
   should_have_audience @new_description
+end
+
+When(/^I delete the audience "(.*?)"$/) do |audience_name|
+  @audience_name = audience_name
+  basic_auth('discover', '')
+  visit '/admin'
+  click_link @audience_name
+  click_button 'Delete'
+  should_be_success
+end
+
+Then(/^the audience is no longer shown on the main site$/) do
+  visit '/'
+  expect(page).not_to have_css('.audience', text: @audience_name)
 end

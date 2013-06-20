@@ -30,3 +30,7 @@ def basic_auth(name, password)
     raise "I don't know how to log in!"
   end
 end
+
+def should_be_success
+  expect(page).to have_css(".nav")
+end

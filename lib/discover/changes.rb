@@ -21,6 +21,10 @@ module Discover
       include Changes
     end
 
+    class AudienceDeleted < Struct.new(:slug)
+      include Changes
+    end
+
     class TopicCreated < Struct.new(:topic)
       include Changes
     end
@@ -40,5 +44,6 @@ module Discover
     class InvalidAudience < Struct.new(:message)
       include Changes
     end
+
   end
 end
