@@ -29,6 +29,14 @@ module Discover
       include Changes
     end
 
+    class TopicEdited < Struct.new(:slug, :topic)
+      include Changes
+    end
+
+    class TopicDeleted < Struct.new(:slug)
+      include Changes
+    end
+
     class PlaceAddedToTopic < Struct.new(:topic, :place)
       include Changes
     end

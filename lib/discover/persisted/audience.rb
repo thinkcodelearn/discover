@@ -71,6 +71,11 @@ module Discover
       )
     end
 
+    def topic_edited(change)
+      topic = Persisted::Topic.find_by(slug: change.slug)
+      topic.update_attributes(:name => change.topic.name)
+    end
+
     def place_added_to_topic(change)
       topic = Persisted::Topic.find_by(slug: change.topic.slug)
       topic.places << change.place.to_yaml

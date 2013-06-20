@@ -69,5 +69,39 @@ end
 Then(/^the topic should be shown under that audience$/) do
   visit '/'
   click_link @audience_name
-  page.should have_css(".topic", text: @topic_name)
+  should_have_topic @topic_name
+end
+
+Then(/^I see an error telling me I can't create two topics with the same name$/) do
+  page.should have_css(".alert-error")
+end
+
+
+When(/^I change the name of the topic "(.*?)" to "(.*?)"$/) do |old_name, new_name|
+  @new_name = new_name
+  basic_auth('discover', '')
+  visit '/admin'
+  click_link old_name
+  fill_in 'Topic name', :with => new_name
+  click_button 'Save changes'
+  should_be_success
+end
+
+Then(/^the topic name should be updated on the main site$/) do
+  visit '/'
+  click_link @audience_name
+  should_have_topic @new_name
+end
+
+When(/^I delete the topic again$/) do
+  basic_auth('discover', '')
+  visit '/admin'
+  click_link @topic_name
+  click_button 'Delete'
+  should_be_success
+end
+
+Then(/^the topic is no longer shown on the admin site$/) do
+  visit '/admin'
+  expect(page).not_to have_css('.topic', text: @topic_name)
 end

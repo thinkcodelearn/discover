@@ -10,5 +10,9 @@ module Discover
     def sluggify(string)
       string.downcase.gsub(/\W/,'-')
     end
+
+    def with_name(new_name)
+      self.class.new(new_name, slug, places)
+    end
   end
 end

@@ -43,4 +43,4 @@ Feature: Maintaining Topics
   Scenario: Removing an audience
     When I create a topic "Youth"
     And I delete the topic again
-    Then the topic is no longer shown on the main site
+    Then the topic is no longer shown on the admin site

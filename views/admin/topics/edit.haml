@@ -1,0 +1,9 @@
+%form{:method => "post", :action => to('/' + @object.slug)}
+  %legend== Edit '#{@object.name}'
+  = haml :form
+  %button.btn.btn-primary{:type => 'submit'}
+    %i.icon-edit.icon-white
+    Save changes
+  %button.btn{:type => 'submit', :name => '_method', :value => 'delete', :onclick => 'return confirm("Are you sure you want to delete this?")'}
+    %i.icon-trash
+    Delete

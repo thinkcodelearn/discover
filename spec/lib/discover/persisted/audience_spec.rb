@@ -52,11 +52,11 @@ module Discover
     it "edits audiences" do
       create_audience!
       create_topic!
-      new_audience = Audience.new("new_description", nil, [topic])
+      new_audience = Audience.new("new_description", nil, [topic.slug])
       subject.apply([Changes::AudienceEdited.new(audience.slug, new_audience)])
       saved_audience = subject.audience_from_slug(audience.slug)
       expect(saved_audience.description).to eq "new_description"
-      expect(saved_audience.topics).to eq [topic]
+      expect(saved_audience.topics).to eq [topic.slug]
     end
 
     it "adds places to topics" do

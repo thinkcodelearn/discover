@@ -19,6 +19,10 @@ def should_have_audience(audience)
   page.should have_css(".audience", text: audience)
 end
 
+def should_have_topic(topic)
+  page.should have_css(".topic", text: topic)
+end
+
 def basic_auth(name, password)
   if page.driver.respond_to?(:basic_auth)
     page.driver.basic_auth(name, password)
