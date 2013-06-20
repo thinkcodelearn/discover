@@ -13,10 +13,12 @@ module Discover
           end
 
           def audience_created(change)
+            app.flash[:notice] = "The audience '#{change.audience.description}' has been created."
             success
           end
 
           def audience_edited(change)
+            app.flash[:notice] = "The audience '#{change.audience.description}' has been successfully edited."
             success
           end
 
@@ -69,13 +71,13 @@ module Discover
 
         def create_from_params(params)
           Audience.new(params[:object][:description], nil,
-                       [params[:object][:topics]].flatten)
+                       [params[:object][:topics]].flatten.compact)
         end
 
         def update_from_params(object, params)
           object.
             with_description(params[:object][:description]).
-            with_topics([params[:object][:topics]].flatten)
+            with_topics([params[:object][:topics]].flatten.compact)
         end
 
         def delete_change(slug)
