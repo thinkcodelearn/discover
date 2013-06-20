@@ -1,0 +1,21 @@
+!!! HTML5
+%html
+  %head
+    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+    %meta{:charset => "utf-8"}
+    %meta{:name => "author", :content => "Chris Parsons"}
+    %link{:rel => "stylesheet", :href => "/css/bootstrap.min.css"}
+    %link{:rel => "stylesheet", :href => "/css/bootstrap-responsive.min.css"}
+    %link{:rel => "stylesheet", :href => "/css/screen.css"}
+    %script{:type => "text/javascript", :src => "/js/jquery-latest.js"}
+    %script{:type => "text/javascript", :src => "/js/bootstrap.min.js"}
+    /[if lt IE 9]
+      %script{:type => "text/javascript", :src => "http://html5shim.googlecode.com/svn/trunk/html5.js"}
+
+    :css
+      body { padding: 20px; }
+      h1 { font-size: 2em; }
+      h2 { font-size: 1.5em; }
+  %body
+    %h1 Discover Thamesmead
+    = yield

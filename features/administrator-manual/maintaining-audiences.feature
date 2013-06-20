@@ -34,13 +34,11 @@ Feature: Maintaining Audiences
   Scenario: Editing an existing audience
     Given the site has the following example audiences:
       | I want to go out |
-      | I have kids      |
     When I change the description of the audience "I want to go out" to "I want to have fun"
     Then the audience description should be updated on the main site
 
   Scenario: Removing an audience
     Given the site has the following example audiences:
       | I want to go out |
-      | I have kids      |
     When I delete the audience "I want to go out"
     Then the audience is no longer shown on the main site

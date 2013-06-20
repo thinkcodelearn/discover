@@ -15,14 +15,14 @@ def new_app
       end
 
       map "/help" do
-        use Rack::Usermanual, :sections => { "Administrator manual" => "features/administrator-manual", "User manual" => "features/user-manual" }, :index => "features/administrator-manual/README.md"
+        use Rack::Usermanual, :sections => { "Administrator manual" => "features/administrator-manual", "User manual" => "features/user-manual" }, :index => "features/administrator-manual/README.md", :layout => 'views/layout_help.haml'
       end
 
       use Discover::App::Admin::Base
     end
 
     map "/help" do
-      use Rack::Usermanual, :sections => { "User manual" => "features/user-manual" }, :index => "features/README.md"
+      use Rack::Usermanual, :sections => { "User manual" => "features/user-manual" }, :index => "features/README.md", :layout => 'views/layout_help.haml'
     end
 
     run Discover::App::Frontend
