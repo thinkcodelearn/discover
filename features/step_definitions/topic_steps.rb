@@ -4,31 +4,19 @@ Then(/^I should see the topics I'm interested in$/) do
   end
 end
 
-
 Given(/^an example topic "(.*?)" within "(.*?)" with this example place:$/) do |topic, audience, table|
-  @places = table.transpose.hashes.map do |row|
-    lat, lng = row['Location'].split(', ')
-    Discover::Place.new(
-      row['Name'],
-      row['Information'],
-      lat,
-      lng,
-      row['Address'],
-      row['Telephone'],
-      row['URL'],
-      row['E-mail'],
-      row['Facebook'],
-      row['Twitter'])
-  end
-  @topic = Discover::Topic.new(topic)
+  @places = places_from(table)
+  @topic = Discover::Topic.new(topic, nil, @places.map(&:slug))
   @audience = Discover::Audience.new(audience, nil, [@topic.slug])
 
   changes = []
+  @places.each do |place|
+    changes << Discover::Changes::PlaceCreated.new(place)
+  end
   changes << Discover::Changes::TopicCreated.new(@topic)
   changes << Discover::Changes::AudienceCreated.new(@audience)
 
-  place_changes = @places.map { |p| Discover::Changes::PlaceAddedToTopic.new(@topic, p) }
-  Discover::AudienceRepository.new.apply(changes + place_changes)
+  Discover::AudienceRepository.new.apply(changes)
 end
 
 When(/^I view the "(.*?)" topic within "(.*?)"$/) do |topic, audience|

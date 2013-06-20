@@ -1,0 +1,60 @@
+.row-fluid
+  .span6
+    %label{:for => "name"} Name
+    %input.span12#name{:type => 'text', :name => 'object[name]', :value => @object.name}
+    %label{:for => "information"} Information
+    %input.span12#information{:type => 'text', :name => 'object[information]', :value => @object.information}
+    %label{:for => "address"} Address
+    %input.span12#address{:type => 'text', :name => 'object[address]', :value => @object.address, :placeholder => "e.g. 10 Downing St, London, SW1A 1AA"}
+    %label{:for => "lat"} Latitude/Longitude
+    %input.span6#lat{:type => 'text', :name => 'object[lat]', :value => @object.lat}
+    %input.span6#lng{:type => 'text', :name => 'object[lng]', :value => @object.lng}
+    %label{:for => "telephone"} Telephone
+    %input.span12#telephone{:type => 'text', :name => 'object[telephone]', :value => @object.telephone, :placeholder => "e.g. 020 7777 7777"}
+    %label{:for => "url"} URL
+    %input.span12#url{:type => 'text', :name => 'object[url]', :value => @object.url, :placeholder => "e.g. http://example.com"}
+    %label{:for => "email"} E-mail
+    %input.span12#email{:type => 'text', :name => 'object[email]', :value => @object.email, :placeholder => "e.g. hello@example.com"}
+    %label{:for => "facebook"} Facebook
+    %input.span12#facebook{:type => 'text', :name => 'object[facebook]', :value => @object.facebook, :placeholder => "e.g. http://facebook.com/example"}
+    %label{:for => "twitter"} Twitter
+    %input.span12#twitter{:type => 'text', :name => 'object[twitter]', :value => @object.twitter, :placeholder => "e.g. http://twitter.com/example"}
+  .span6
+    %p Choose the place location on the map:
+    %script{:src => 'http://openlayers.org/api/OpenLayers.js'}
+    #map{:style => "height: 400px"}
+    :javascript
+      var wgs84 = new OpenLayers.Projection("EPSG:4326")
+      function transform(map, ll) {
+        return ll.transform(wgs84, map.getProjectionObject());
+      }
+      $(document).ready(function() {
+        var map = new OpenLayers.Map({ div: 'map' });
+        var layer = new OpenLayers.Layer.OSM("Simple OSM Map");
+        map.addLayer(layer);
+
+        var initialCentre = transform(map, new OpenLayers.LonLat(0.1142, 51.5040));
+        map.setCenter(initialCentre, 14);
+
+        var vectors = new OpenLayers.Layer.Vector("Point", {
+          styleMap: new OpenLayers.StyleMap({
+            pointRadius: '14',
+            externalGraphic: 'http://www.openlayers.org/dev/img/marker.png'
+          })
+        });
+        map.addLayer(vectors);
+        var point = new OpenLayers.Geometry.Point(initialCentre.lon, initialCentre.lat);
+        vectors.addFeatures([new OpenLayers.Feature.Vector(point)]);
+
+        control = new OpenLayers.Control.DragFeature(vectors, {
+          autoActivate: true,
+          onDrag: function(point) {
+            var ll = new OpenLayers.LonLat(point.geometry.x, point.geometry.y).transform(map.getProjectionObject(), wgs84);
+            $('#lng').val(ll.lon);
+            $('#lat').val(ll.lat);
+          }
+        });
+        map.addControl(control);
+      });
+
+

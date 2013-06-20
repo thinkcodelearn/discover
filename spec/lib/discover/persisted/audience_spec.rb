@@ -13,7 +13,7 @@ module Discover
   describe AudienceRepository do
     let(:audience) { Discover::Audience.new("description") }
     let(:topic) { Discover::Topic.new("name") }
-    let(:place) { Discover::Place.new("name", "information", 50, -1) }
+    let(:place) { Discover::Place.new("name", nil, "information", 50, -1) }
 
     def create_audience!
       subject.audience_created(Changes::AudienceCreated.new(audience))
@@ -21,6 +21,10 @@ module Discover
 
     def create_topic!
       subject.topic_created(Changes::TopicCreated.new(topic))
+    end
+
+    def create_place!
+      subject.place_created(Changes::PlaceCreated.new(place))
     end
 
     it "creates new audiences when receiving the correct change command" do
@@ -49,6 +53,12 @@ module Discover
       expect(subject.topics).to eq [topic]
     end
 
+    it "creates and retrieves places" do
+      create_place!
+      expect(subject.places).to eq [place]
+      expect(subject.place_from_slug(place.slug)).to eq place
+    end
+
     it "edits audiences" do
       create_audience!
       create_topic!
@@ -59,11 +69,14 @@ module Discover
       expect(saved_audience.topics).to eq [topic.slug]
     end
 
-    it "adds places to topics" do
+    it "edits topics" do
+      create_place!
       create_topic!
-      subject.place_added_to_topic(Changes::PlaceAddedToTopic.new(topic, place))
-
-      expect(subject.topic_from_slug(topic.slug).places).to eq [place]
+      new_topic = Topic.new("new_name", nil, [place.slug])
+      subject.apply([Changes::TopicEdited.new(topic.slug, new_topic)])
+      saved_topic = subject.topic_from_slug(topic.slug)
+      expect(saved_topic.name).to eq "new_name"
+      expect(saved_topic.places).to eq [place.slug]
     end
   end
 end

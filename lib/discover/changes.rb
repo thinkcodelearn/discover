@@ -37,10 +37,6 @@ module Discover
       include Changes
     end
 
-    class PlaceAddedToTopic < Struct.new(:topic, :place)
-      include Changes
-    end
-
     class ValidAudience < Struct.new(:audience)
       include Changes
     end
@@ -54,6 +50,26 @@ module Discover
     end
 
     class InvalidTopic < Struct.new(:message)
+      include Changes
+    end
+
+    class ValidPlace < Struct.new(:place)
+      include Changes
+    end
+
+    class InvalidPlace < Struct.new(:message)
+      include Changes
+    end
+
+    class PlaceCreated < Struct.new(:place)
+      include Changes
+    end
+
+    class PlaceEdited < Struct.new(:slug, :place)
+      include Changes
+    end
+
+    class PlaceDeleted < Struct.new(:slug)
       include Changes
     end
   end

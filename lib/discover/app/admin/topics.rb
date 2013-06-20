@@ -70,11 +70,14 @@ module Discover
         end
 
         def create_from_params(params)
-          Topic.new(params[:object][:name])
+          Topic.new(params[:object][:name], nil,
+                   [params[:object][:places]].flatten.compact)
         end
 
         def update_from_params(object, params)
-          object.with_name(params[:object][:name])
+          object.
+            with_name(params[:object][:name]).
+            with_places([params[:object][:places]].flatten.compact)
         end
 
         def delete_change(slug)

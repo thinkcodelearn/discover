@@ -38,6 +38,10 @@
         .span3
           %ul.nav.nav-list
             %li
+              %a{:href =>'/admin/places/new'}
+                %i.icon-plus
+                Create place
+            %li
               %a{:href =>'/admin/topics/new'}
                 %i.icon-plus
                 Create topic
@@ -53,15 +57,21 @@
               %a{:href =>'/help'}
                 %i.icon-question-sign
                 User manual
-            %li.nav-header Audiences
-            - @audiences.each do |audience|
+            %li.nav-header Places
+            - @places.each do |place|
               %li
-                %a{:href => '/admin/audiences/'+audience.slug}
+                %a{:href => '/admin/places/' + place.slug}
                   %i.icon-user
-                  = audience.description
+                  = place.name
             %li.nav-header Topics
             - @topics.each do |topic|
               %li
                 %a{:href => '/admin/topics/'+topic.slug}
                   %i.icon-tag
                   = topic.name
+            %li.nav-header Audiences
+            - @audiences.each do |audience|
+              %li
+                %a{:href => '/admin/audiences/'+audience.slug}
+                  %i.icon-user
+                  = audience.description

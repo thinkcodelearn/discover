@@ -18,6 +18,10 @@ def new_app
         use Discover::App::Admin::Topics
       end
 
+      map "/places" do
+        use Discover::App::Admin::Places
+      end
+
       map "/help" do
         use Rack::Usermanual, :sections => { "Administrator manual" => "features/administrator-manual", "User manual" => "features/user-manual" }, :index => "features/administrator-manual/README.md", :layout => 'views/layout_help.haml'
       end

@@ -5,7 +5,8 @@ xml.feed :xmlns => 'http://www.w3.org/2005/Atom', :'xmlns:georss' => 'http://www
   xml.link "http://" + request.env["HTTP_HOST"] + topic_path(@audience, @topic)
   xml.updated Time.now.xmlschema
   xml.id topic_path(@audience, @topic)
-  @topic.places.each_with_index do |place, index|
+  @topic.places.each_with_index do |slug, index|
+    place = repository.place_from_slug(slug)
     xml.entry do
       xml.title place.name
       xml.id topic_path(@audience, @topic) + '/' + index.to_s

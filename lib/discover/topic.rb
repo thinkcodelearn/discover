@@ -14,5 +14,9 @@ module Discover
     def with_name(new_name)
       self.class.new(new_name, slug, places)
     end
+
+    def with_places(new_places)
+      self.class.new(name, slug, new_places)
+    end
   end
 end

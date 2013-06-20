@@ -1,6 +1,7 @@
 module Discover
   NoAudienceFoundError = Class.new(Exception)
   NoTopicFoundError = Class.new(Exception)
+  NoPlaceFoundError = Class.new(Exception)
   NothingFoundForSlugError = Class.new(Exception)
 
   module Persisted
@@ -31,14 +32,30 @@ module Discover
       field :name
       field :slug
       has_and_belongs_to_many :audiences
-      field :places, type: Array, default: []
+      has_and_belongs_to_many :places
 
       def domain_object
-        Discover::Topic.new(name, slug, places_domain_object).freeze
+        Discover::Topic.new(name, slug, places.map(&:slug)).freeze
       end
 
-      def places_domain_object
-        places.map { |p| YAML.load(p) }
+      def sync_places!(places)
+        self.places = places.map do |slug|
+          Persisted::Place.find_by(slug: slug)
+        end
+        save!
+      end
+    end
+
+    class Place
+      include Mongoid::Document
+      include Mongoid::Timestamps
+
+      field :slug
+      field :yaml
+      has_and_belongs_to_many :topics
+
+      def domain_object
+        YAML.load(yaml).freeze
       end
     end
   end
@@ -56,7 +73,7 @@ module Discover
 
     def audience_edited(change)
       audience = Persisted::Audience.find_by(slug: change.slug)
-      audience.update_attributes(:description => change.audience.description)
+      audience.update_attributes(description: change.audience.description)
       audience.sync_topics!(change.audience.topics)
     end
 
@@ -65,15 +82,17 @@ module Discover
     end
 
     def topic_created(change)
-      Persisted::Topic.create!(
+      topic = Persisted::Topic.create!(
         name: change.topic.name,
         slug: change.topic.slug
       )
+      topic.sync_places!(change.topic.places)
     end
 
     def topic_edited(change)
       topic = Persisted::Topic.find_by(slug: change.slug)
-      topic.update_attributes(:name => change.topic.name)
+      topic.update_attributes(name: change.topic.name)
+      topic.sync_places!(change.topic.places)
     end
 
     def place_added_to_topic(change)
@@ -82,8 +101,18 @@ module Discover
       topic.save!
     end
 
+    def place_created(change)
+      Persisted::Place.create!(
+        slug: change.place.slug,
+        yaml: change.place.to_yaml)
+    end
+
     def topics
       Persisted::Topic.all.map(&:domain_object)
+    end
+
+    def places
+      Persisted::Place.all.map(&:domain_object)
     end
 
     def active_audiences
@@ -100,6 +129,12 @@ module Discover
       Persisted::Topic.find_by(slug: slug).domain_object
     rescue Mongoid::Errors::DocumentNotFound
       raise NoTopicFoundError
+    end
+
+    def place_from_slug(slug)
+      Persisted::Place.find_by(slug: slug).domain_object
+    rescue Mongoid::Errors::DocumentNotFound
+      raise NoPlaceFoundError
     end
   end
 end

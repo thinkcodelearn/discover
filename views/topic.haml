@@ -43,7 +43,8 @@
           - if @topic.places.empty?
             %p Sorry: we don't have anything to show here yet.
           - else
-            - @topic.places.each_with_index do |place, index|
+            - @topic.places.each_with_index do |slug, index|
+              - place = repository.place_from_slug(slug)
               .place.accordion-group
                 %h5.accordion-heading.name
                   %a.accordion-toggle{:href => "#collapse#{index}", :'data-toggle' => 'collapse', :'data-parent' => '#places'}

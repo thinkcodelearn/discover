@@ -38,3 +38,21 @@ end
 def should_be_success
   expect(page).to have_css(".nav")
 end
+
+def places_from(table)
+  table.transpose.hashes.map do |row|
+    lat, lng = row['Location'].split(', ')
+    Discover::Place.new(
+      row['Name'],
+      nil,
+      row['Information'],
+      lat,
+      lng,
+      row['Address'],
+      row['Telephone'],
+      row['URL'],
+      row['E-mail'],
+      row['Facebook'],
+      row['Twitter'])
+  end
+end
