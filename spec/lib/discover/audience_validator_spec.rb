@@ -23,8 +23,8 @@ module Discover
         to be_a(Changes::InvalidAudience)
     end
 
-    it 'returns a creation error if the description is not unique' do
-      audience = Audience.new('foo')
+    it 'returns a creation error if the slug is not unique' do
+      audience = Audience.new('Foo')
       expect(subject.validate(audience).first).
         to be_a(Changes::InvalidAudience)
     end

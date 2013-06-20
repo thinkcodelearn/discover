@@ -49,17 +49,18 @@ module Discover
       expect(subject.topics).to eq [topic]
     end
 
-    it "attaches audiences to topics" do
+    it "edits audiences" do
       create_audience!
       create_topic!
-      subject.topic_attached_to_audience(Changes::TopicAttachedToAudience.new(audience, topic))
-      expect(subject.audience_from_slug(audience.slug).topics).to eq [topic]
+      new_audience = Audience.new("new_description", nil, [topic])
+      subject.apply([Changes::AudienceEdited.new(audience.slug, new_audience)])
+      saved_audience = subject.audience_from_slug(audience.slug)
+      expect(saved_audience.description).to eq "new_description"
+      expect(saved_audience.topics).to eq [topic]
     end
 
     it "adds places to topics" do
-      create_audience!
       create_topic!
-      subject.topic_attached_to_audience(Changes::TopicAttachedToAudience.new(audience, topic))
       subject.place_added_to_topic(Changes::PlaceAddedToTopic.new(topic, place))
 
       expect(subject.topic_from_slug(topic.slug).places).to eq [place]

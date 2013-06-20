@@ -1,5 +1,5 @@
 module Discover
-  class AudienceValidator < Struct.new(:existing_descriptions)
+  class AudienceValidator < Struct.new(:existing_slugs)
     def validate(audience)
       [do_validate(audience)]
     end
@@ -11,15 +11,15 @@ module Discover
         return error("The audience does not have a valid description.")
       end
 
-      if existing_descriptions.include?(audience.description)
-        return error("There is already an audience with that description.")
+      if existing_slugs.include?(audience.slug)
+        return error("There is already an audience with that url.")
       end
 
       Changes::ValidAudience.new(audience)
     end
 
-    def error(description)
-      Changes::InvalidAudience.new(description)
+    def error(message)
+      Changes::InvalidAudience.new(message)
     end
   end
 end

@@ -13,7 +13,14 @@ module Discover
       has_and_belongs_to_many :topics
 
       def domain_object
-        Discover::Audience.new(description, slug, topics.map(&:domain_object)).freeze
+        Discover::Audience.new(description, slug, topics.map(&:slug)).freeze
+      end
+
+      def sync_topics!(topics)
+        self.topics = topics.map do |slug|
+          Persisted::Topic.find_by(slug: slug)
+        end
+        save!
       end
     end
 
@@ -40,16 +47,17 @@ module Discover
     include Reactor
 
     def audience_created(change)
-      Persisted::Audience.create!(
+      audience = Persisted::Audience.create!(
         description: change.audience.description,
         slug: change.audience.slug
       )
+      audience.sync_topics!(change.audience.topics)
     end
 
     def audience_edited(change)
       audience = Persisted::Audience.find_by(slug: change.slug)
       audience.update_attributes(:description => change.audience.description)
-      audience.save!
+      audience.sync_topics!(change.audience.topics)
     end
 
     def audience_deleted(change)
@@ -61,13 +69,6 @@ module Discover
         name: change.topic.name,
         slug: change.topic.slug
       )
-    end
-
-    def topic_attached_to_audience(change)
-      topic = Persisted::Topic.find_by(slug: change.topic.slug)
-      audience = Persisted::Audience.find_by(slug: change.audience.slug)
-      audience.topics << topic
-      audience.save!
     end
 
     def place_added_to_topic(change)

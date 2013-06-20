@@ -55,8 +55,8 @@ module Discover
           AudienceHandler.new(self, '/').apply(queue).first
         end
 
-        def validator
-          AudienceValidator.new(repository.active_audiences.map(&:description))
+        def validator(candidate)
+          AudienceValidator.new((repository.active_audiences - [candidate]).map(&:slug))
         end
 
         def find(slug)
@@ -68,11 +68,14 @@ module Discover
         end
 
         def create_from_params(params)
-          Audience.new(params[:object][:description])
+          Audience.new(params[:object][:description], nil,
+                       [params[:object][:topics]].flatten)
         end
 
         def update_from_params(object, params)
-          object.with_description(params[:object][:description])
+          object.
+            with_description(params[:object][:description]).
+            with_topics([params[:object][:topics]].flatten)
         end
 
         def delete_change(slug)

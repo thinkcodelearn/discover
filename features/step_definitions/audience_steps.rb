@@ -11,14 +11,12 @@ end
 
 Given(/^an example audience "(.*?)" with these associated topics:$/) do |description, table|
   @topics = table.raw.map { |row| Discover::Topic.new(row.first) }
-  @audience = Discover::Audience.new(description)
+  @audience = Discover::Audience.new(description, nil, @topics.map(&:slug))
 
+  topic_changes = @topics.map { |t| Discover::Changes::TopicCreated.new(t) }
   audience_change = Discover::Changes::AudienceCreated.new(@audience)
-  topic_changes =
-    @topics.map { |t| Discover::Changes::TopicCreated.new(t) } +
-    @topics.map { |t| Discover::Changes::TopicAttachedToAudience.new(@audience, t) }
 
-  Discover::AudienceRepository.new.apply([ audience_change ] + topic_changes)
+  Discover::AudienceRepository.new.apply(topic_changes + [ audience_change ])
 end
 
 

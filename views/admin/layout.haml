@@ -35,15 +35,13 @@
         .span3
           %ul.nav.nav-list
             %li
+              %a{:href =>'/admin/topics/new'}
+                %i.icon-plus
+                Create topic
+            %li
               %a{:href =>'/admin/audiences/new'}
                 %i.icon-plus
                 Create audience
-            %li.nav-header Audiences
-            - @audiences.each do |audience|
-              %li
-                %a{:href => '/admin/audiences/'+audience.slug}
-                  %i.icon-user
-                  = audience.description
             %li.nav-header Help
             %li
               %a{:href =>'/admin/help'}
@@ -52,3 +50,15 @@
               %a{:href =>'/help'}
                 %i.icon-question-sign
                 User manual
+            %li.nav-header Audiences
+            - @audiences.each do |audience|
+              %li
+                %a{:href => '/admin/audiences/'+audience.slug}
+                  %i.icon-user
+                  = audience.description
+            %li.nav-header Topics
+            - @topics.each do |topic|
+              %li
+                %a{:href => '/admin/topics/'+topic.slug}
+                  %i.icon-tag
+                  = topic.name

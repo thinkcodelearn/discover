@@ -5,7 +5,8 @@
         %li
           %a{:href => '/'}
             %i.icon-home
-        - @audience.topics.each do |topic|
+        - @audience.topics.each do |slug|
+          - topic = repository.topic_from_slug(slug)
           %li{:class => "#{'active' if @topic == topic}"}
             %a{:href => topic_path(@audience, topic)}= topic.name
       %script{:src => 'http://openlayers.org/api/OpenLayers.js'}

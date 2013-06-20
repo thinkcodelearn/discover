@@ -10,6 +10,7 @@ module Discover
 
         before do
           @audiences = repository.active_audiences
+          @topics = repository.topics
         end
 
         helpers do

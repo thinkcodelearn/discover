@@ -2,3 +2,7 @@
   .span6
     %label{:for => "description"} Audience description
     %input.span12#description{:type => 'text', :name => 'object[description]', :placeholder => "e.g. I am looking for work", :value => @object.description}
+    %label{:for => "topics"} Included topics
+    %select.span12#topics{:multiple => 'multiple', :name => 'object[topics]'}
+      - @topics.each do |topic|
+        %option{:value => topic.slug}= topic.name

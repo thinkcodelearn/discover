@@ -7,7 +7,8 @@
   %h1.page-header== Discover Thamesmead - #{@audience.description}
   .row-fluid{:style => "padding: 140px 20px; background-color: #ddd"}
     .span1
-    - @audience.topics.each do |topic|
+    - @audience.topics.each do |slug|
+      - topic = repository.topic_from_slug(slug)
       .span2
         .well.topic
           %a{:href => topic_path(@audience, topic)}= topic.name

@@ -12,5 +12,9 @@ module Discover
     it 'initialises places to an empty array if nil' do
       expect(Topic.new('name').places).to eq([])
     end
+
+    it 'initialises name to empty' do
+      expect(Topic.new.name).to eq('')
+    end
   end
 end

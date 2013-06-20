@@ -18,13 +18,15 @@ module Discover
           end
 
           host.post '/?' do
-            queue = validator.validate(create_from_params(params))
+            queue = validator(nil).validate(create_from_params(params))
             queue += creator.apply(queue)
             downstream(queue)
           end
 
           host.post '/:slug/?' do |slug|
-            queue = validator.validate(update_from_params(find(slug), params))
+            candidate = find(slug)
+            queue = validator(candidate).
+              validate(update_from_params(candidate, params))
             queue += editor(slug).apply(queue)
             downstream(queue)
           end
