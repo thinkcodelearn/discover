@@ -52,27 +52,33 @@ module Discover
           end
         end
 
-        post '/?' do
-          candidate = Audience.new(params[:object][:description])
-          queue = AudienceValidator.new(audience_repository.active_audiences.map(&:description)).validate(candidate)
-          queue += AudienceCreator.new.apply(queue)
+        def react(queue)
           audience_repository.apply(queue)
           AudienceHandler.new(self, '/').apply(queue).first
+        end
+
+        def validate(candidate)
+          AudienceValidator.new(audience_repository.active_audiences.map(&:description)).validate(candidate)
+        end
+
+        post '/?' do
+          candidate = Audience.new(params[:object][:description])
+          queue = validate(candidate)
+          queue += AudienceCreator.new.apply(queue)
+          react(queue)
         end
 
         post '/:slug/?' do |slug|
-          existing = audience_repository.audience_from_slug(slug)
-          candidate = existing.with_description(params[:object][:description])
-          queue = AudienceValidator.new(audience_repository.active_audiences.map(&:description)).validate(candidate)
+          candidate = audience_repository.
+            audience_from_slug(slug).
+            with_description(params[:object][:description])
+          queue = validate(candidate)
           queue += AudienceEditor.new(slug).apply(queue)
-          audience_repository.apply(queue)
-          AudienceHandler.new(self, '/').apply(queue).first
+          react(queue)
         end
 
         delete '/:slug/?' do |slug|
-          queue = [Changes::AudienceDeleted.new(slug)]
-          audience_repository.apply(queue)
-          AudienceHandler.new(self, '/').apply(queue).first
+          react([Changes::AudienceDeleted.new(slug)])
         end
       end
     end
