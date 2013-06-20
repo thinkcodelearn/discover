@@ -7,21 +7,24 @@
     %link{:rel => "stylesheet", :href => "/css/bootstrap.min.css"}
     %link{:rel => "stylesheet", :href => "/css/bootstrap-responsive.min.css"}
     %link{:rel => "stylesheet", :href => "/css/screen.css"}
+    %link{:rel => "stylesheet", :href => "/css/chosen.min.css"}
     %script{:type => "text/javascript", :src => "/js/jquery-latest.js"}
     %script{:type => "text/javascript", :src => "/js/bootstrap.min.js"}
+    %script{:type => "text/javascript", :src => "/js/chosen.jquery.min.js"}
     /[if lt IE 9]
       %script{:type => "text/javascript", :src => "http://html5shim.googlecode.com/svn/trunk/html5.js"}
 
   %body
+    :javascript
+      $(document).ready(function() {
+        $('.alert').alert();
+        $('.chzn-select').chosen();
+      });
     .container
       %h1.page-header Discover Thamesmead: Admin
       .row-fluid
         .span9
           - if flash.has?(:error) || flash.has?(:notice)
-            :javascript
-              $(document).ready(function() {
-                $('.alert').alert();
-              });
             .flash
               - if flash[:error]
                 .alert.alert-error
