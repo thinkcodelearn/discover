@@ -55,8 +55,8 @@ module Discover
           AudienceHandler.new(self, '/').apply(queue).first
         end
 
-        def validate(candidate)
-          AudienceValidator.new(repository.active_audiences.map(&:description)).validate(candidate)
+        def validator
+          AudienceValidator.new(repository.active_audiences.map(&:description))
         end
 
         def find(slug)
