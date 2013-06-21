@@ -95,16 +95,19 @@ module Discover
       topic.sync_places!(change.topic.places)
     end
 
-    def place_added_to_topic(change)
-      topic = Persisted::Topic.find_by(slug: change.topic.slug)
-      topic.places << change.place.to_yaml
-      topic.save!
-    end
-
     def place_created(change)
       Persisted::Place.create!(
         slug: change.place.slug,
         yaml: change.place.to_yaml)
+    end
+
+    def place_edited(change)
+      place = Persisted::Place.find_by(slug: change.slug)
+      place.update_attributes(yaml: change.place.to_yaml)
+    end
+
+    def place_deleted(change)
+      Persisted::Place.find_by(slug: change.slug).destroy
     end
 
     def topics

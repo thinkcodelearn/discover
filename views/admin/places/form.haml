@@ -6,9 +6,8 @@
     %input.span12#information{:type => 'text', :name => 'object[information]', :value => @object.information}
     %label{:for => "address"} Address
     %input.span12#address{:type => 'text', :name => 'object[address]', :value => @object.address, :placeholder => "e.g. 10 Downing St, London, SW1A 1AA"}
-    %label{:for => "lat"} Latitude/Longitude
-    %input.span6#lat{:type => 'text', :name => 'object[lat]', :value => @object.lat}
-    %input.span6#lng{:type => 'text', :name => 'object[lng]', :value => @object.lng}
+    %input.span6#lat{:type => 'hidden', :name => 'object[lat]', :value => @object.lat}
+    %input.span6#lng{:type => 'hidden', :name => 'object[lng]', :value => @object.lng}
     %label{:for => "telephone"} Telephone
     %input.span12#telephone{:type => 'text', :name => 'object[telephone]', :value => @object.telephone, :placeholder => "e.g. 020 7777 7777"}
     %label{:for => "url"} URL
@@ -33,7 +32,10 @@
         var layer = new OpenLayers.Layer.OSM("Simple OSM Map");
         map.addLayer(layer);
 
-        var initialCentre = transform(map, new OpenLayers.LonLat(0.1142, 51.5040));
+        var lon = '#{@object.lng || 0.1142}';
+        var lat = '#{@object.lat || 51.5040}';
+
+        var initialCentre = transform(map, new OpenLayers.LonLat(lon, lat));
         map.setCenter(initialCentre, 14);
 
         var vectors = new OpenLayers.Layer.Vector("Point", {
@@ -57,5 +59,4 @@
         });
         map.addControl(control);
       });
-
 
