@@ -38,8 +38,9 @@
 
         var vectors = new OpenLayers.Layer.Vector("Point", {
           styleMap: new OpenLayers.StyleMap({
-            pointRadius: '14',
-            externalGraphic: 'http://www.openlayers.org/dev/img/marker.png'
+            pointRadius: '8',
+            fillColor: '#0000ff',
+            fillOpacity: 0.5
           })
         });
         map.addLayer(vectors);
