@@ -6,7 +6,7 @@ Feature: Maintaining Topics
   Creating topics
   ------------------
 
-  Click 'Create topic' on the menu on the right to add new topics.
+  Click '[Create topic](/admin/topics/new)' on the menu on the right to add new topics.
   Fill in the name - make sure that it isn't blank or is the same as
   an existing one - and click the 'Create topic' button when you're
   ready.

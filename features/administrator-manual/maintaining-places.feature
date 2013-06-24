@@ -6,7 +6,7 @@ Feature: Maintaining Places
   Creating places
   ------------------
 
-  Click 'Create place' on the menu on the right to add new places. Fill
+  Click '[Create place](/admin/places/new)' on the menu on the right to add new places. Fill
   in the name, and the details and click the 'Create place' button when
   you're ready.
 

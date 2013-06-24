@@ -6,7 +6,7 @@ Feature: Maintaining Audiences
   Creating audiences
   ------------------
 
-  Click 'Create audience' on the menu on the right to add new audience.
+  Click '[Create audience](/admin/audiences/new)' on the menu on the right to add new audience.
   Fill in the description - make sure that it isn't blank or is the
   same as an existing one - and click the 'Create audience' button when
   you're ready.
