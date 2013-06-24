@@ -41,19 +41,6 @@
               %a{:href => '/'}
                 %i.icon-star
                 View main site
-            %li.nav-header
-            %li
-              %a{:href =>'/admin/places/new'}
-                %i.icon-plus
-                Create place
-            %li
-              %a{:href =>'/admin/topics/new'}
-                %i.icon-plus
-                Create topic
-            %li
-              %a{:href =>'/admin/audiences/new'}
-                %i.icon-plus
-                Create audience
             %li.nav-header Help
             %li
               %a{:href =>'/admin/help'}
@@ -63,18 +50,30 @@
                 %i.icon-question-sign
                 User manual
             %li.nav-header Places
+            %li
+              %a{:href =>'/admin/places/new'}
+                %i.icon-plus
+                Create place
             - @places.each do |place|
               %li
                 %a{:href => '/admin/places/' + place.slug}
                   %i.icon-user
                   = place.name
             %li.nav-header Topics
+            %li
+              %a{:href =>'/admin/topics/new'}
+                %i.icon-plus
+                Create topic
             - @topics.each do |topic|
               %li
                 %a{:href => '/admin/topics/'+topic.slug}
                   %i.icon-tag
                   = topic.name
             %li.nav-header Audiences
+            %li
+              %a{:href =>'/admin/audiences/new'}
+                %i.icon-plus
+                Create audience
             - @audiences.each do |audience|
               %li
                 %a{:href => '/admin/audiences/'+audience.slug}
