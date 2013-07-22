@@ -1,0 +1,7 @@
+%h3 All places
+- @places.each do |place|
+  %h4
+    %a{:href => '/admin/places/' + place.slug}
+      = place.name
+    %small
+      = place.information

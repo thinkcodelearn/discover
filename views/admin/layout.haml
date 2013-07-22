@@ -54,11 +54,10 @@
               %a{:href =>'/admin/places/new'}
                 %i.icon-plus
                 Create place
-            - @places.each do |place|
-              %li
-                %a{:href => '/admin/places/' + place.slug}
-                  %i.icon-user
-                  = place.name
+            %li
+              %a{:href =>'/admin/places'}
+                %i.icon-list
+                All places
             %li.nav-header Topics
             %li
               %a{:href =>'/admin/topics/new'}
