@@ -1,7 +1,16 @@
 %h3 All places
-- @places.each do |place|
-  %h4
-    %a{:href => '/admin/places/' + place.slug}
-      = place.name
-    %small
-      = place.information
+%table.table.table-striped
+  %thead
+    %tr
+      %th Name
+      %th Telephone
+      %th E-mail
+  - @places.each do |place|
+    %tr
+      %td
+        %a{:href => '/admin/places/' + place.slug}
+          = place.name
+      %td
+        = place.telephone
+      %td
+        = place.email
