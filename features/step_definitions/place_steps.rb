@@ -33,7 +33,7 @@ end
 When(/^I change the name of the place to "(.*?)"$/) do |new_name|
   @new_name = new_name
   basic_auth('discover', '')
-  visit '/admin'
+  visit '/admin/places'
   click_link @old_name
   fill_in 'Name', :with => new_name
   click_button 'Save changes'
@@ -42,13 +42,13 @@ end
 
 Then(/^the place name should be updated/) do
   basic_auth('discover', '')
-  visit '/admin'
+  visit '/admin/places'
   page.should have_content(@new_name)
 end
 
 When(/^I delete the place again$/) do
   basic_auth('discover', '')
-  visit '/admin'
+  visit '/admin/places'
   click_link @old_name
   click_button 'Delete'
   should_be_success

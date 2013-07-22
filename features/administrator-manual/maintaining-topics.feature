@@ -40,7 +40,7 @@ Feature: Maintaining Topics
     When I change the name of the topic "Job Centres" to "Work Centres"
     Then the topic name should be updated on the main site
 
-  Scenario: Removing an audience
+  Scenario: Removing a topic
     When I create a topic "Youth"
     And I delete the topic again
     Then the topic is no longer shown on the admin site

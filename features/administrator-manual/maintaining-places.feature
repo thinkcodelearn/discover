@@ -45,7 +45,7 @@ Feature: Maintaining Places
     When I change the name of the place to "Work Centre"
     Then the place name should be updated on the main site
 
-  Scenario: Removing an audience
+  Scenario: Removing a place
     Given I have created a place called "Job Centre"
     When I delete the place again
     Then the place is no longer shown on the admin site
