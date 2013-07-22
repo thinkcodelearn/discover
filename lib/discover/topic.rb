@@ -18,5 +18,9 @@ module Discover
     def with_places(new_places)
       self.class.new(name, slug, new_places)
     end
+
+    def places_by_name(repository)
+      places.map {|slug| repository.place_from_slug(slug) }.sort_by(&:name)
+    end
   end
 end
