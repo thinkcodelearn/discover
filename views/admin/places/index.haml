@@ -13,4 +13,5 @@
       %td
         = place.telephone
       %td
-        = place.email
+        %a{:href => "mailto:#{place.email}"}
+          = place.email
