@@ -119,7 +119,7 @@ module Discover
     end
 
     def places
-      Persisted::Place.all.map(&:domain_object)
+      Persisted::Place.all.map(&:domain_object).sort_by(&:name)
     end
 
     def active_audiences
