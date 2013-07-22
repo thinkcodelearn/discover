@@ -95,6 +95,10 @@ module Discover
       topic.sync_places!(change.topic.places)
     end
 
+    def topic_deleted(change)
+      Persisted::Topic.find_by(slug: change.slug).destroy
+    end
+
     def place_created(change)
       Persisted::Place.create!(
         slug: change.place.slug,

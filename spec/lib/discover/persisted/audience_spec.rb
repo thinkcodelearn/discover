@@ -59,6 +59,12 @@ module Discover
       expect(subject.place_from_slug(place.slug)).to eq place
     end
 
+    it 'deletes places' do
+      create_place!
+      subject.apply([Changes::PlaceDeleted.new(place.slug)])
+      expect { subject.place_from_slug(place.slug) }.to raise_error(NoPlaceFoundError)
+    end
+
     it "edits audiences" do
       create_audience!
       create_topic!
@@ -69,6 +75,12 @@ module Discover
       expect(saved_audience.topics).to eq [topic.slug]
     end
 
+    it 'deletes audiences' do
+      create_audience!
+      subject.apply([Changes::AudienceDeleted.new(audience.slug)])
+      expect { subject.audience_from_slug(audience.slug) }.to raise_error(NoAudienceFoundError)
+    end
+
     it "edits topics" do
       create_place!
       create_topic!
@@ -77,6 +89,13 @@ module Discover
       saved_topic = subject.topic_from_slug(topic.slug)
       expect(saved_topic.name).to eq "new_name"
       expect(saved_topic.places).to eq [place.slug]
+    end
+
+    it 'deletes topics' do
+      create_place!
+      create_topic!
+      subject.apply([Changes::TopicDeleted.new(topic.slug)])
+      expect { subject.topic_from_slug(topic.slug) }.to raise_error(NoTopicFoundError)
     end
   end
 end
