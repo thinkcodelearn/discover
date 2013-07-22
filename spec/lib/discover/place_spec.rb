@@ -12,5 +12,10 @@ module Discover
     it 'initialises name to empty' do
       expect(Place.new.name).to eq('')
     end
+
+    it 'sets lat/lng to default' do
+      expect(Place.new.lat).to eq(Place::DEFAULT[:lat])
+      expect(Place.new.lng).to eq(Place::DEFAULT[:lng])
+    end
   end
 end

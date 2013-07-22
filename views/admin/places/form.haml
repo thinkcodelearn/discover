@@ -32,8 +32,8 @@
         var layer = new OpenLayers.Layer.OSM("Simple OSM Map");
         map.addLayer(layer);
 
-        var lon = '#{@object.lng || 0.1142}';
-        var lat = '#{@object.lat || 51.5040}';
+        var lon = '#{@object.lng}';
+        var lat = '#{@object.lat}';
 
         var initialCentre = transform(map, new OpenLayers.LonLat(lon, lat));
         map.setCenter(initialCentre, 14);
