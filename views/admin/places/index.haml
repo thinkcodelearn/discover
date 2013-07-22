@@ -1,17 +1,2 @@
 %h3 All places
-%table.table.table-striped
-  %thead
-    %tr
-      %th Name
-      %th Telephone
-      %th E-mail
-  - @places.each do |place|
-    %tr
-      %td
-        %a{:href => '/admin/places/' + place.slug}
-          = place.name
-      %td
-        = place.telephone
-      %td
-        %a{:href => "mailto:#{place.email}"}
-          = place.email
+= haml :_places_list, :locals => { :places => @places }

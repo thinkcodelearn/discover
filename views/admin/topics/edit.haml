@@ -7,3 +7,6 @@
   %button.btn{:type => 'submit', :name => '_method', :value => 'delete', :onclick => 'return confirm("Are you sure you want to delete this?")'}
     %i.icon-trash
     Delete
+
+%h4 Places in this topic
+= haml :_places_list, :locals => { :places => @object.places_by_name(repository) }
