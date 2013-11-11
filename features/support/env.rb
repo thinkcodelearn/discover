@@ -20,11 +20,11 @@ def should_have_audience(audience)
 end
 
 def should_have_topic(topic)
-  page.should have_css(".topic", text: topic)
+  page.should have_css(".dt-topic", text: topic)
 end
 
 def should_have_topic_description(topic)
-  page.should have_css(".topic .description", text: topic)
+  page.should have_css(".dt-topic .description", text: topic)
 end
 
 def basic_auth(name, password)
