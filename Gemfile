@@ -5,6 +5,7 @@ gem "rake"
 gem "sinatra"
 gem "haml"
 gem "sass"
+gem "kramdown"
 gem 'json', '~> 1.7.7'
 
 gem 'bson_ext'

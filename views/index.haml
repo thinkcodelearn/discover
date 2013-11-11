@@ -1,9 +1,7 @@
-.container
-  %h1.page-header Discover Thamesmead
-  .row-fluid
-    .span4.offset1
-      - @audiences.each do |audience|
-        .well.audience
-          %a{:href => "/#{audience.slug}"}= audience.description
-    .span4.offset1
-      %img{:src => '/img/discover/visitor-guide.png'}
+.dt-logo.clearfix
+  %img.pull-right{:src => '/img/discover/logo.png'}
+.dt-index-bg.row-fluid
+  .span5
+    - @audiences.each do |audience|
+      %a.dt-audience{:href => "/#{audience.slug}"}
+        = Kramdown::Document.new(audience.description).to_html

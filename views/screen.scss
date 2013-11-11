@@ -1,7 +1,5 @@
-.audience {
-  &:hover {
-  }
-}
+$blue: rgb(27, 164, 224);
+$transblue: rgba(27, 164, 224, 0.8);
 
 body {
   background: white;
@@ -45,6 +43,20 @@ body {
     top: 0px;
     left: 20px;
     margin: 0px !important;
+  }
+
+  .dt-logo {
+    img {
+      float: none;
+    }
+  }
+
+  .dt-index-bg {
+    margin: 0 -20px;
+    padding: 0px !important;
+    .dt-audience {
+      margin: 15px 10px;
+    }
   }
 }
 
@@ -98,5 +110,54 @@ body {
   .social {
     float: right;
     font-size: 1.1em;
+  }
+}
+
+.dt-logo {
+  img {
+    width: 350px;
+  }
+  padding: 10px 10px;
+}
+
+.dt-index-bg {
+  position: absolute;
+  top: 60px;
+  bottom: 0px;
+  padding: 60px 100px;
+  background: url(/img/discover/index-bg.jpg) no-repeat;
+  border-top: 1px solid #555;
+}
+
+.dt-audience {
+  display: block;
+
+  padding: 10px 25px;
+  border: 1px solid #333;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  margin-bottom: 30px;
+
+  font-size: 1.5em;
+  color: black;
+  font-weight: bold;
+
+  &:hover {
+    background-color: $transblue;
+    color: white;
+    text-decoration: none;
+    em {
+      color: white;
+    }
+  }
+
+  em {
+    color: $blue;
+    font-style: normal;
+    font-family: serif;
+  }
+
+  p {
+    margin: 0
   }
 }

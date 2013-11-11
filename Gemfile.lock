@@ -100,6 +100,7 @@ DEPENDENCIES
   database_cleaner
   haml
   json (~> 1.7.7)
+  kramdown
   launchy
   mongoid (~> 3.0)
   puma
