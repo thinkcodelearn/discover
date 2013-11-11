@@ -12,3 +12,5 @@
       .span2
         .well.topic
           %a{:href => topic_path(@audience, topic)}= topic.name
+          %p.description
+            = topic.description

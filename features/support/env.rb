@@ -16,11 +16,15 @@ require 'discover'
 Capybara.app = new_app
 
 def should_have_audience(audience)
-  page.should have_css(".audience", text: audience)
+  page.should have_css(".dt-audience", text: audience)
 end
 
 def should_have_topic(topic)
   page.should have_css(".topic", text: topic)
+end
+
+def should_have_topic_description(topic)
+  page.should have_css(".topic .description", text: topic)
 end
 
 def basic_auth(name, password)
@@ -33,6 +37,18 @@ def basic_auth(name, password)
   else
     raise "I don't know how to log in!"
   end
+end
+
+def create_topic(name, description = "")
+  @topic_name = name
+  @description = description
+  basic_auth('discover', '')
+  visit '/admin'
+  click_link 'Create topic'
+  fill_in 'Topic name', :with => name
+  fill_in 'Description', :with => description
+  click_button 'Create topic'
+  should_be_success
 end
 
 def should_be_success

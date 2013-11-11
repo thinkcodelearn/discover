@@ -4,7 +4,7 @@ Feature: Maintaining Topics
   remove and edit topics.
 
   Creating topics
-  ------------------
+  ---------------
 
   Click '[Create topic](/admin/topics/new)' on the menu on the right to add new topics.
   Fill in the name - make sure that it isn't blank or is the same as
@@ -25,7 +25,7 @@ Feature: Maintaining Topics
   Scenario: Adding a topic and associating it with an audience
     Given the site has the following example audiences:
       | I want to go out |
-    When I create a topic "Restaurants"
+    When I create a topic "Restaurants" with description "Things to do"
     And I associate it with the "I want to go out" audience
     Then the topic should be shown under that audience
 

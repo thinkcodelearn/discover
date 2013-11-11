@@ -84,7 +84,7 @@ module Discover
     it "edits topics" do
       create_place!
       create_topic!
-      new_topic = Topic.new("new_name", nil, [place.slug])
+      new_topic = Topic.new("new_name", nil, nil, [place.slug])
       subject.apply([Changes::TopicEdited.new(topic.slug, new_topic)])
       saved_topic = subject.topic_from_slug(topic.slug)
       expect(saved_topic.name).to eq "new_name"

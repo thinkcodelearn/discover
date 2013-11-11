@@ -6,7 +6,7 @@ end
 
 Given(/^an example topic "(.*?)" within "(.*?)" with this example place:$/) do |topic, audience, table|
   @places = places_from(table)
-  @topic = Discover::Topic.new(topic, nil, @places.map(&:slug))
+  @topic = Discover::Topic.new(topic, "", nil, @places.map(&:slug))
   @audience = Discover::Audience.new(audience, nil, [@topic.slug])
 
   changes = []
@@ -34,14 +34,12 @@ Then(/^I can see basic information about the place$/) do
   end
 end
 
-When(/^I (?:try to )?create a(?:nother)? topic "(.*?)"$/) do |topic_name|
-  @topic_name = topic_name
-  basic_auth('discover', '')
-  visit '/admin'
-  click_link 'Create topic'
-  fill_in 'Topic name', :with => topic_name
-  click_button 'Create topic'
-  should_be_success
+When(/^I create a topic "(.*?)" with description "(.*?)"$/) do |topic_name, description|
+  create_topic(topic_name, description)
+end
+
+When(/^I (?:try to )?create a(?:nother)? topic "([^"]+)"$/) do |topic_name|
+  create_topic(topic_name)
 end
 
 When(/^I associate it with the "(.*?)" audience$/) do |audience_name|
@@ -58,6 +56,7 @@ Then(/^the topic should be shown under that audience$/) do
   visit '/'
   click_link @audience_name
   should_have_topic @topic_name
+  should_have_topic_description @description if !@description.empty?
 end
 
 Then(/^I see an error telling me I can't create two topics with the same name$/) do

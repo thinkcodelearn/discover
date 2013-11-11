@@ -2,6 +2,8 @@
   .span6
     %label{:for => "name"} Topic name
     %input.span12#name{:type => 'text', :name => 'object[name]', :placeholder => "e.g. Youth", :value => @object.name}
+    %label{:for => "description"} Description
+    %input.span12#description{:type => 'text', :name => 'object[description]', :placeholder => "e.g. Groups & Courses", :value => @object.description}
     %label{:for => "places"} Included places
     %select.chzn-select.span12#places{:multiple => 'multiple', :name => 'object[places][]'}
       - @places.each do |place|

@@ -30,12 +30,13 @@ module Discover
       include Mongoid::Timestamps
 
       field :name
+      field :description
       field :slug
       has_and_belongs_to_many :audiences
       has_and_belongs_to_many :places
 
       def domain_object
-        Discover::Topic.new(name, slug, places.map(&:slug)).freeze
+        Discover::Topic.new(name, description, slug, places.map(&:slug)).freeze
       end
 
       def sync_places!(places)
@@ -84,6 +85,7 @@ module Discover
     def topic_created(change)
       topic = Persisted::Topic.create!(
         name: change.topic.name,
+        description: change.topic.description,
         slug: change.topic.slug
       )
       topic.sync_places!(change.topic.places)
@@ -91,7 +93,10 @@ module Discover
 
     def topic_edited(change)
       topic = Persisted::Topic.find_by(slug: change.slug)
-      topic.update_attributes(name: change.topic.name)
+      topic.update_attributes(
+        name: change.topic.name,
+        description: change.topic.description
+      )
       topic.sync_places!(change.topic.places)
     end
 
