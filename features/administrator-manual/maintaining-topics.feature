@@ -22,6 +22,14 @@ Feature: Maintaining Topics
   another topic. Click 'Save changes' when you are done. You can also
   click 'Remove' to permanently remove topics.
 
+  Adding an image to a topic
+  --------------------------
+
+  Images are used for the backgrounds for different topics on the
+  audience pages. Add an image by clicking 'add image' on the menu on
+  the right and uploading the image via the form provided. You can then
+  reference the image on the topic page.
+
   Scenario: Adding a topic and associating it with an audience
     Given the site has the following example audiences:
       | I want to go out |
@@ -39,6 +47,11 @@ Feature: Maintaining Topics
       | Job Centres          |
     When I change the name of the topic "Job Centres" to "Work Centres"
     Then the topic name should be updated on the main site
+
+  Scenario: Adding an image to a topic
+    Given I have uploaded an image called 'job-centres.png'
+    When I create a topic "Job Centres" referencing the 'job-centres.png' background image
+    Then the topic page should show the 'job-centres.png' image as its background
 
   Scenario: Removing a topic
     When I create a topic "Youth"

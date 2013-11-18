@@ -72,5 +72,9 @@ module Discover
     class PlaceDeleted < Struct.new(:slug)
       include Changes
     end
+
+    class ImageUploaded < Struct.new(:path, :bucket)
+      include Changes
+    end
   end
 end

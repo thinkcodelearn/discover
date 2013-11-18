@@ -18,6 +18,10 @@ def new_app
         use Discover::App::Admin::Topics
       end
 
+      map "/images" do
+        use Discover::App::Admin::Images
+      end
+
       map "/places" do
         use Discover::App::Admin::Places
       end
