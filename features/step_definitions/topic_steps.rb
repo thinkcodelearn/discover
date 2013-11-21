@@ -42,6 +42,18 @@ When(/^I (?:try to )?create a(?:nother)? topic "([^"]+)"$/) do |topic_name|
   create_topic(topic_name)
 end
 
+When(/^I create a topic "(.*?)" referencing the 'job\-centres\.png' background image$/) do |topic_name|
+  create_topic(topic_name) do
+    select 'job-centres.png'
+  end
+end
+
+Then(/^an audience page for that topic should show the 'job\-centres\.png' image as the topic's background$/) do
+  Discover::AudienceRepository.new.apply([Discover::Changes::AudienceCreated.new(Discover::Audience.new("foo", nil, ["job-centres"]))])
+  visit "/foo"
+  page.should have_css(".dt-topic-bg[style*='job-centres.png']")
+end
+
 When(/^I associate it with the "(.*?)" audience$/) do |audience_name|
   @audience_name = audience_name
   visit '/admin'

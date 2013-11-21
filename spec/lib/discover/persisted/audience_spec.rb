@@ -4,6 +4,7 @@ require 'mongoid_helper'
 require 'discover/audience'
 require 'discover/topic'
 require 'discover/place'
+require 'discover/image'
 require 'discover/changes'
 require 'discover/reactor'
 
@@ -84,11 +85,12 @@ module Discover
     it "edits topics" do
       create_place!
       create_topic!
-      new_topic = Topic.new("new_name", nil, nil, [place.slug])
+      new_topic = Topic.new("new_name", nil, nil, [place.slug], 'image-url')
       subject.apply([Changes::TopicEdited.new(topic.slug, new_topic)])
       saved_topic = subject.topic_from_slug(topic.slug)
       expect(saved_topic.name).to eq "new_name"
       expect(saved_topic.places).to eq [place.slug]
+      expect(saved_topic.image).to eq "image-url"
     end
 
     it 'deletes topics' do
@@ -96,6 +98,12 @@ module Discover
       create_topic!
       subject.apply([Changes::TopicDeleted.new(topic.slug)])
       expect { subject.topic_from_slug(topic.slug) }.to raise_error(NoTopicFoundError)
+    end
+
+    it 'adds uploaded images' do
+      subject.apply([Changes::ImageUploaded.new("path", "bucket")])
+      subject.available_images.size.should == 1
+      subject.available_images.first.should == Image.new("path", "bucket")
     end
   end
 end

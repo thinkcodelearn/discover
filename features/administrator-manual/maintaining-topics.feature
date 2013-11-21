@@ -51,7 +51,7 @@ Feature: Maintaining Topics
   Scenario: Adding an image to a topic
     Given I have uploaded an image called 'job-centres.png'
     When I create a topic "Job Centres" referencing the 'job-centres.png' background image
-    Then the topic page should show the 'job-centres.png' image as its background
+    Then an audience page for that topic should show the 'job-centres.png' image as the topic's background
 
   Scenario: Removing a topic
     When I create a topic "Youth"

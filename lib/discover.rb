@@ -4,6 +4,7 @@ require 'discover/topic'
 require 'discover/topic_validator'
 require 'discover/place'
 require 'discover/place_validator'
+require 'discover/image'
 require 'discover/changes'
 require 'discover/reactor'
 

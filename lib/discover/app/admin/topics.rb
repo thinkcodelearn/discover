@@ -73,14 +73,16 @@ module Discover
           Topic.new(params[:object][:name],
                     params[:object][:description],
                     nil,
-                   [params[:object][:places]].flatten.compact)
+                   [params[:object][:places]].flatten.compact).
+                   with_image(params[:object][:image])
         end
 
         def update_from_params(object, params)
           object.
             with_name(params[:object][:name]).
             with_description(params[:object][:description]).
-            with_places([params[:object][:places]].flatten.compact)
+            with_places([params[:object][:places]].flatten.compact).
+            with_image(params[:object][:image])
         end
 
         def delete_change(slug)

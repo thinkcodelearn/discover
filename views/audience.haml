@@ -3,7 +3,7 @@
 .dt-audience-bg.row-fluid
   - @audience.topics.each do |slug|
     - topic = repository.topic_from_slug(slug)
-    .dt-topic-bg{:style => 'background: url(/img/discover/index-bg.jpg)'}
+    .dt-topic-bg{:style => "background: url(#{topic.image})"}
       %a.dt-topic{:href => topic_path(@audience, topic)}
         .name
           = topic.name

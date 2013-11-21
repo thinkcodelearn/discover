@@ -8,5 +8,9 @@
     %select.chzn-select.span12#places{:multiple => 'multiple', :name => 'object[places][]'}
       - @places.each do |place|
         %option{:value => place.slug, :selected => @object.places.include?(place.slug)}= place.name
+    %label{:for => "image"} Background Image
+    %select.chzn-select.span12#image{:name => 'object[image]'}
+      - repository.available_images.each do |image|
+        %option{:value => image.path, :selected => @object.image == image}= image.filename
     %br
     %br

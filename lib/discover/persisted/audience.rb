@@ -32,11 +32,12 @@ module Discover
       field :name
       field :description
       field :slug
+      field :image
       has_and_belongs_to_many :audiences
       has_and_belongs_to_many :places
 
       def domain_object
-        Discover::Topic.new(name, description, slug, places.map(&:slug)).freeze
+        Discover::Topic.new(name, description, slug, places.map(&:slug), image).freeze
       end
 
       def sync_places!(places)
@@ -57,6 +58,18 @@ module Discover
 
       def domain_object
         YAML.load(yaml).freeze
+      end
+    end
+
+    class Image
+      include Mongoid::Document
+      include Mongoid::Timestamps
+
+      field :path
+      field :bucket
+
+      def domain_object
+        Discover::Image.new(path, bucket).freeze
       end
     end
   end
@@ -86,7 +99,8 @@ module Discover
       topic = Persisted::Topic.create!(
         name: change.topic.name,
         description: change.topic.description,
-        slug: change.topic.slug
+        slug: change.topic.slug,
+        image: change.topic.image
       )
       topic.sync_places!(change.topic.places)
     end
@@ -95,7 +109,8 @@ module Discover
       topic = Persisted::Topic.find_by(slug: change.slug)
       topic.update_attributes(
         name: change.topic.name,
-        description: change.topic.description
+        description: change.topic.description,
+        image: change.topic.image
       )
       topic.sync_places!(change.topic.places)
     end
@@ -119,6 +134,13 @@ module Discover
       Persisted::Place.find_by(slug: change.slug).destroy
     end
 
+    def image_uploaded(change)
+      Persisted::Image.create!(
+        path: change.path,
+        bucket: change.bucket
+      )
+    end
+
     def topics
       Persisted::Topic.all.map(&:domain_object)
     end
@@ -129,6 +151,10 @@ module Discover
 
     def active_audiences
       Persisted::Audience.all.map(&:domain_object)
+    end
+
+    def available_images
+      Persisted::Image.all.map(&:domain_object)
     end
 
     def audience_from_slug(slug)

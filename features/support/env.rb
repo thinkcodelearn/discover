@@ -47,6 +47,7 @@ def create_topic(name, description = "")
   click_link 'Create topic'
   fill_in 'Topic name', :with => name
   fill_in 'Description', :with => description
+  yield if block_given?
   click_button 'Create topic'
   should_be_success
 end
