@@ -15,6 +15,15 @@ require 'discover'
 
 Capybara.app = new_app
 
+CarrierWave.configure do |config|
+  config.fog_credentials = {
+    :provider               => 'AWS',
+    :aws_access_key_id      => 'test',
+    :aws_secret_access_key  => 'test'
+  }
+  config.fog_directory  = 'test'
+end
+
 def should_have_audience(audience)
   page.should have_css(".dt-audience", text: audience)
 end
