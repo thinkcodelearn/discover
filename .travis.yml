@@ -1,6 +1,13 @@
 language: ruby
 bundler_args: --without development
 rvm:
-  - 1.9.3
+- 1.9.3
 services:
-  - mongodb
+- mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: WsbZ7fUKeZG5M3eaek2G+8ytH+KOKq+BbTgxkEC0RdtrP1qVEFgxabaUT58R5AIv5EM+M1lR8Ilyh3UfdBYmgZ8zo71dhrEF8jnilgJJieGvw3JPDkeiVv7qw1mUeRiF9Xjt99mkbFelVwcz3XXtRmtUMSug8AAxle8H0ym09DE=
+  app: discover-thamesmead
+  on:
+    repo: thinkcodelearn/discover
