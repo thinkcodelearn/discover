@@ -2,8 +2,32 @@ $blue: rgb(27, 164, 224);
 $transblue: rgba(27, 164, 224, 0.8);
 $signature: serif;
 
+@mixin blue-box {
+  background: $blue;
+  color: white;
+  border-radius: 5px;
+  padding: 3px 0px 3px 10px;
+  border: 1px solid $blue;
+
+  a { color: white; }
+}
+
 body {
   background: white;
+}
+
+.nav-tabs li {
+  a {
+    padding: 4px 20px 4px 20px;
+    border: #999;
+  }
+
+  &.active {
+    a {
+      background: $blue;
+      color: white;
+    }
+  }
 }
 
 .map-page {
@@ -18,7 +42,7 @@ body {
 
       #map {
         position: absolute;
-        top: 40px;
+        top: 30px;
         bottom: 0px;
         left: 0px;
         right: 0px;
@@ -29,8 +53,9 @@ body {
 
 .right-column
 {
-  padding: 0 20px;
+  padding-right: 10px;
   position: absolute;
+  top: 60px;
   right: 0px;
   background: white;
   .right-column-heading {
@@ -38,11 +63,7 @@ body {
     z-index: 5;
     background: white;
     width: 100%;
-    margin: -25px 0;
-  }
-
-  .right-column-content {
-    margin-top: 100px;
+    margin: -20px 15px;
   }
 }
 
@@ -61,30 +82,67 @@ body {
   }
 }
 
-.place {
-  .marker {
-    float: left;
-    padding-right: 10px;
-    margin-top: -4px;
+.place.accordion-group {
+  border: 0px;
+
+  h5.accordion-heading.name {
+    margin: 15px 0px 0px 0px;
   }
-  .address {
-    margin: 5px 0;
+
+  .accordion-toggle {
+    padding: 0px;
+    text-decoration: none;
+
+    .dt-place-place-name {
+      @include blue-box;
+
+      margin-left: 30px;
+    }
+
+    &.collapsed .dt-place-place-name {
+      background: #eee;
+      border: 1px solid #ddd;
+      color: $blue;
+    }
+    .dt-marker {
+      float: left;
+      margin-top: 0px;
+    }
   }
-  .telephone {
-    font-size: 1.1em;
-    margin-bottom: 5px;
-  }
-  .social {
-    float: right;
-    font-size: 1.1em;
+  .accordion-inner {
+    border: 0px;
+    padding: 0px 0px 0px 30px;
+
+    .address {
+      margin: 0 10px;
+    }
+
+    .information {
+      font-size: 0.9em;
+      margin: 10px 0px 5px 10px;
+    }
+
+    .social {
+      float: right;
+      a { text-decoration: none; }
+      margin: -5px 5px 0px 0px;
+      font-size: 1.1em;
+      img {
+        height: 25px;
+      }
+    }
+
+    .contact {
+      @include blue-box;
+    }
   }
 }
 
 .dt-logo {
   img {
     width: 350px;
-  }
-  padding: 10px 10px;
+}
+padding: 10px 10px 0px 10px;
 }
 
 .dt-index-bg, .dt-audience-bg {
@@ -118,18 +176,18 @@ body {
     text-decoration: none;
     em {
       color: white;
-    }
-  }
+}
+}
 
-  em {
-    color: $blue;
-    font-style: normal;
-    font-family: $signature;
-  }
+em {
+  color: $blue;
+  font-style: normal;
+  font-family: $signature;
+}
 
-  p {
-    margin: 0
-  }
+p {
+  margin: 0
+}
 }
 
 .dt-audience-bg {
@@ -151,73 +209,79 @@ body {
         background: $transblue;
         .name, .description {
           color: white;
-        }
-      }
+}
+}
 
-      .name {
-        color: $blue;
-        font-style: normal;
-        font-size: 2.5em;
-        font-family: $signature;
-      }
+.name {
+  color: $blue;
+  font-style: normal;
+  font-size: 2.5em;
+  font-family: $signature;
+}
 
-      .description {
-        margin-top: 15px;
-        font-weight: bold;
-        font-size: 1.25em;
-        color: black;
-      }
-    }
-  }
+.description {
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 1.25em;
+  color: black;
+}
+}
+}
+}
+
+.dt-topic-name {
+  border-top: 1px solid #bbb;
+  border-bottom: 1px solid #bbb;
+  font-family: $signature;
 }
 
 @media (max-width: 767px) {
   .map-page {
     padding: 20px 0px;
-  }
-  .column {
-    #map {
-      height: 500px !important;
-    }
-    position: relative !important;
+}
+.column {
+  #map {
     height: 500px !important;
-    margin-top: 25px;
-  }
-  .right-column-heading {
-    position: absolute;
-    top: 0px;
-    left: 20px;
-    margin: 0px !important;
-  }
+}
+position: relative !important;
+height: 500px !important;
+margin-top: 25px;
+}
+.right-column-heading {
+  position: absolute;
+  top: 0px;
+  left: 20px;
+  margin: 0px !important;
+}
 
-  .dt-logo {
-    img {
-      float: none;
-    }
-  }
+.dt-logo {
+  img {
+    float: none;
+}
+}
 
-  .dt-index-bg, .dt-audience-bg {
-    margin: 0 -20px;
-    padding: 0px;
-    .dt-audience {
-      margin: 15px 10px;
-    }
-  }
+.dt-index-bg, .dt-audience-bg {
+  margin: 0 -20px;
+  padding: 0px;
+  .dt-audience {
+    margin: 15px 10px;
+}
+}
 
-  .dt-audience-bg {
-    .dt-topic-bg {
+.dt-audience-bg {
+  .dt-topic-bg {
+    height: auto;
+    width: 100%;
+    float: none;
+
+    a.dt-topic {
       height: auto;
-      width: 100%;
-      float: none;
+      padding: 15px;
 
-      a.dt-topic {
-        height: auto;
-        padding: 15px;
-
-        .name, .description {
-          display: inline-block;
-        }
-      }
-    }
-  }
+      .name, .description {
+        display: inline-block;
+}
+}
+}
+}
 }
