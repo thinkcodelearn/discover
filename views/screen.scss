@@ -1,6 +1,6 @@
 $blue: rgb(27, 164, 224);
 $transblue: rgba(27, 164, 224, 0.8);
-$signature: serif;
+$signature: 'ITCGoudySansW01-BlackIt';
 
 @mixin blue-box {
   background: $blue;
@@ -9,7 +9,9 @@ $signature: serif;
   padding: 3px 0px 3px 10px;
   border: 1px solid $blue;
 
-  a { color: white; }
+  a {
+    color: white;
+  }
 }
 
 body {
@@ -34,7 +36,6 @@ body {
   padding: 20px;
 
   .row-fluid {
-
     .column {
       position: fixed;
       top: 20px;
@@ -51,8 +52,7 @@ body {
   }
 }
 
-.right-column
-{
+.right-column {
   padding-right: 10px;
   position: absolute;
   top: 60px;
@@ -71,14 +71,14 @@ body {
   opacity: 0.8;
 
   img.olTileImage {
-      max-width: none !important;
+    max-width: none !important;
   }
   .olControlAttribution {
-      font-size: 0.8em;
-      right: 0.5em;
-      bottom: 0.5em;
-      position: absolute;
-      display: block;
+    font-size: 0.8em;
+    right: 0.5em;
+    bottom: 0.5em;
+    position: absolute;
+    display: block;
   }
 }
 
@@ -104,6 +104,7 @@ body {
       border: 1px solid #ddd;
       color: $blue;
     }
+
     .dt-marker {
       float: left;
       margin-top: 0px;
@@ -139,10 +140,11 @@ body {
 }
 
 .dt-logo {
-  img {
-    width: 350px;
-}
-padding: 10px 10px 0px 10px;
+  color: $blue;
+  float: right;
+  font-size: 2.5em;
+  font-family: $signature;
+  padding: 20px 20px 0px 0px;
 }
 
 .dt-index-bg, .dt-audience-bg {
@@ -155,7 +157,6 @@ padding: 10px 10px 0px 10px;
 .dt-index-bg {
   padding: 60px 100px;
   background: url(/img/discover/index-bg.jpg) no-repeat;
-  background-size: 100%;
 }
 
 .dt-audience {
@@ -177,18 +178,18 @@ padding: 10px 10px 0px 10px;
     text-decoration: none;
     em {
       color: white;
-}
-}
+    }
+  }
 
-em {
-  color: $blue;
-  font-style: normal;
-  font-family: $signature;
-}
+  em {
+    color: $blue;
+    font-style: normal;
+    font-family: $signature;
+  }
 
-p {
-  margin: 0
-}
+  p {
+    margin: 0
+  }
 }
 
 .dt-audience-bg {
@@ -210,24 +211,24 @@ p {
         background: $transblue;
         .name, .description {
           color: white;
-}
-}
+        }
+      }
 
-.name {
-  color: $blue;
-  font-style: normal;
-  font-size: 2.5em;
-  font-family: $signature;
-}
+      .name {
+        color: $blue;
+        font-style: normal;
+        font-size: 2.5em;
+        font-family: $signature;
+      }
 
-.description {
-  margin-top: 15px;
-  font-weight: bold;
-  font-size: 1.25em;
-  color: black;
-}
-}
-}
+      .description {
+        margin-top: 15px;
+        font-weight: bold;
+        font-size: 1.25em;
+        color: black;
+      }
+    }
+  }
 }
 
 .dt-topic-name {
@@ -239,50 +240,48 @@ p {
 @media (max-width: 767px) {
   .map-page {
     padding: 20px 0px;
-}
-.column {
-  #map {
+  }
+  .column {
+    #map {
+      height: 500px !important;
+    }
+    position: relative !important;
     height: 500px !important;
-}
-position: relative !important;
-height: 500px !important;
-margin-top: 25px;
-}
-.right-column-heading {
-  position: absolute;
-  top: 0px;
-  left: 20px;
-  margin: 0px !important;
-}
+    margin-top: 25px;
+  }
+  .right-column-heading {
+    position: absolute;
+    top: 0px;
+    left: 20px;
+    margin: 0px !important;
+  }
 
-.dt-logo {
-  img {
+  .dt-logo {
     float: none;
-}
-}
+  }
 
-.dt-index-bg, .dt-audience-bg {
-  margin: 0 -20px;
-  padding: 0px;
-  .dt-audience {
-    margin: 15px 10px;
-}
-}
+  .dt-index-bg, .dt-audience-bg {
+    margin: 0 -20px;
+    padding: 0px;
+    .dt-audience {
+      margin: 15px 10px;
+    }
+  }
 
-.dt-audience-bg {
-  .dt-topic-bg {
-    height: auto;
-    width: 100%;
-    float: none;
-
-    a.dt-topic {
+  .dt-audience-bg {
+    .dt-topic-bg {
       height: auto;
-      padding: 15px;
+      width: 100%;
+      float: none;
 
-      .name, .description {
-        display: inline-block;
-}
-}
-}
-}
+      a.dt-topic {
+        height: auto;
+        padding: 15px;
+
+        .name, .description {
+          display: inline-block;
+        }
+      }
+    }
+  }
 }

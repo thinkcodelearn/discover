@@ -1,5 +1,4 @@
-.dt-logo.clearfix
-  %img.pull-right{:src => '/img/discover/logo.png'}
+= haml :logo
 .dt-audience-bg.row-fluid
   - @audience.topics.each do |slug|
     - topic = repository.topic_from_slug(slug)
