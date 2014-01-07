@@ -25,6 +25,7 @@ module Discover
     private
 
     def httpify(link)
+      return "" if link.nil?
       link =~ %r{^https?://} ? link : 'http://' + link
     end
   end

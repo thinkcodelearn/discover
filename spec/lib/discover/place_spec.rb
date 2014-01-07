@@ -20,6 +20,7 @@ module Discover
 
     it 'auto-adds https to links if not there' do
       place = Place.new
+      expect(place.url).to eq("")
       place.url = "http://google.com"
       expect(place.url).to eq("http://google.com")
       place.url = "https://google.com"
