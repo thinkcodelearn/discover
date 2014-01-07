@@ -30,7 +30,7 @@ end
 Then(/^I can see basic information about the place$/) do
   @places.each do |place|
     page.should have_css(".place .name", text: place.name)
-    page.should have_css(".place .address", text: place.address)
+    page.should have_css(".place address", text: place.address)
   end
 end
 
