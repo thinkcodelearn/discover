@@ -4,8 +4,8 @@ $: << 'spec'
 require 'bundler/setup'
 require 'sinatra/base'
 
-Sinatra::Application.environment = :test
-Bundler.require :default, Sinatra::Application.environment
+Sinatra::Base.environment = :test
+Bundler.require :default, Sinatra::Base.environment
 
 require 'mongoid_helper'
 
