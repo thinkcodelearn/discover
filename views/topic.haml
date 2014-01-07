@@ -51,8 +51,8 @@
                       = place.name
                 %div{:id => "collapse#{index}", :class => "accordion-body collapse #{index != 0 ? 'in':''}"}
                   .accordion-inner
-                    .address.adr
-                      %strong= place.address
+                    %address.adr
+                      %a{:href => "maps:q="+place.address}= place.address
                     %p.information.note= place.information
                     .contact
                       .telephone.tel= place.telephone

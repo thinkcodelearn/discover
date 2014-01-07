@@ -127,8 +127,13 @@ body {
     border: 0px;
     padding: 0px 0px 0px 30px;
 
-    .address {
+    address {
+      font-weight: bold;
       margin: 0 10px;
+      a {
+        color: black;
+        text-decoration: none;
+      }
     }
 
     .information {
