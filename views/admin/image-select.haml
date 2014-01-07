@@ -1,0 +1,6 @@
+%label{:for => "image"} Image
+%select.chzn-select.span12#image{:name => 'object[image]'}
+  - repository.available_images.each do |image|
+    %option{:value => image.path, :selected => @object.image == image.path}= image.filename
+%br
+%br

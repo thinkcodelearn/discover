@@ -3,7 +3,8 @@
     %label{:for => "name"} Name
     %input.span12#name{:type => 'text', :name => 'object[name]', :value => @object.name}
     %label{:for => "information"} Information
-    %textarea.span12#information{:type => 'text', :name => 'object[information]', :value => @object.information}
+    %textarea.span12#information{:type => 'text', :name => 'object[information]'}= @object.information
+    = haml :"../image-select"
     %label{:for => "address"} Address
     %input.span12#address{:type => 'text', :name => 'object[address]', :value => @object.address, :placeholder => "e.g. 10 Downing St, London, SW1A 1AA"}
     %input.span6#lat{:type => 'hidden', :name => 'object[lat]', :value => @object.lat}

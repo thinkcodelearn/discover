@@ -125,6 +125,13 @@ body {
     border: 0px;
     padding: 0px 0px 0px 30px;
 
+    img.dt-place-image {
+      float: right;
+      margin-bottom: 10px;
+      width: 75px;
+      height: 75px;
+    }
+
     address {
       font-weight: bold;
       margin: 0 10px;

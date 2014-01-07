@@ -23,6 +23,15 @@ Feature: Maintaining Places
   Click 'Save changes' when you are done. You can also click 'Delete' to
   permanently remove that place from the system.
 
+
+  Adding an image to a place
+  --------------------------
+
+  Images are used as little thumbnails on the places. Add an image by
+  clicking 'add image' on the menu on the right and uploading the image
+  via the form provided. You can then reference the image on the place
+  page.
+
   Scenario: Adding a place and associating it with a topic
     Given an example audience "I am looking for work" with these associated topics:
       | Job Centres          |
@@ -39,6 +48,11 @@ Feature: Maintaining Places
     When I view the "Job Centres" topic within "I am looking for work"
     Then I can see a map showing the place above
     And I can see basic information about the place
+
+  Scenario: Adding an image to a place
+    Given I have uploaded an image called 'job-centres.png'
+    When I create a place "Job Centre" with the 'job-centres.png' image
+    Then an topic page for "Job Centre" should show the 'job-centres.png' image as the place's thumbnail image
 
   Scenario: Editing an existing place
     Given I have created a place called "Job Centre"

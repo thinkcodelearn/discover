@@ -81,7 +81,8 @@ module Discover
             params[:object][:url],
             params[:object][:email],
             params[:object][:facebook],
-            params[:object][:twitter])
+            params[:object][:twitter],
+            Image.new(params[:object][:image], Image::DEFAULT_BUCKET).url)
         end
 
         def update_from_params(object, params)

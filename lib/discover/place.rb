@@ -1,5 +1,5 @@
 module Discover
-  class Place < Struct.new(:name, :slug, :information, :lat, :lng, :address, :telephone, :url, :email, :facebook, :twitter)
+  class Place < Struct.new(:name, :slug, :information, :lat, :lng, :address, :telephone, :url, :email, :facebook, :twitter, :image)
     DEFAULT = { :lat => '51.5040', :lng => '0.1142' }
 
     def initialize(*)
@@ -15,7 +15,7 @@ module Discover
     end
 
     def with_slug(new_slug)
-      self.class.new(name, new_slug, information, lat, lng, address, telephone, url, email, facebook, twitter)
+      self.class.new(name, new_slug, information, lat, lng, address, telephone, url, email, facebook, twitter, image)
     end
   end
 end

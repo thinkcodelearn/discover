@@ -30,6 +30,26 @@ Given(/^I have created a place called "(.*?)"$/) do |place_name|
   Discover::AudienceRepository.new.apply([change])
 end
 
+When(/^I create a place "(.*?)" with the 'job\-centres\.png' image$/) do |place_name|
+  basic_auth('discover', '')
+  visit '/admin'
+  click_link 'Create place'
+  fill_in 'Name', :with => place_name
+  select 'job-centres.png'
+  click_button 'Create place'
+  should_be_success
+end
+
+Then(/^an topic page for "(.*?)" should show the 'job\-centres\.png' image as the place's thumbnail image$/) do |place_name|
+  create_topic("topic") do
+    select place_name
+  end
+  Discover::AudienceRepository.new.apply([Discover::Changes::AudienceCreated.new(Discover::Audience.new("foo", nil, ["topic"]))])
+  visit '/foo'
+  click_on "topic"
+  page.should have_css(".place img[src*='job-centres.png']")
+end
+
 When(/^I change the name of the place to "(.*?)"$/) do |new_name|
   @new_name = new_name
   basic_auth('discover', '')
