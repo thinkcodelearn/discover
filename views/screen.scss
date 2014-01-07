@@ -211,10 +211,11 @@ body {
 }
 
 .dt-audience-bg {
+  width: 100%;
   .dt-topic-bg {
-    float: left;
-    width: 20%;
+    padding: 0;
     height: 100%;
+    width: 20%;
 
     a.dt-topic {
       background: rgba(255, 255, 255, 0.75);

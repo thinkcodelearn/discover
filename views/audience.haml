@@ -1,10 +1,12 @@
 = haml :logo
-.dt-audience-bg.row-fluid
-  - @audience.topics.each do |slug|
-    - topic = repository.topic_from_slug(slug)
-    .dt-topic-bg{:style => "background: url(#{topic.image})"}
-      %a.dt-topic{:href => topic_path(@audience, topic)}
-        .name
-          = topic.name
-        .description
-          = topic.description
+.dt-audience-bg
+  %table{:style => 'margin: auto', :width => "#{@audience.topics.size * 20}%"}
+    %tr
+      - @audience.topics.each do |slug|
+        - topic = repository.topic_from_slug(slug)
+        %td.dt-topic-bg{:style => "background: url(#{topic.image})"}
+          %a.dt-topic{:href => topic_path(@audience, topic)}
+            .name
+              = topic.name
+            .description
+              = topic.description
