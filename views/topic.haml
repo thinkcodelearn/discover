@@ -56,13 +56,13 @@
                     %p.information.note= place.information
                     .contact
                       .telephone.tel= place.telephone
-                      %a.url{:href => place.url}= place.url.length < 30 ? place.url : place.url[0, 30] + '...'
+                      %a.url{:href => httpify(place.url)}= place.url.length < 30 ? place.url : place.url[0, 30] + '...'
                       %br
                       %a{:href => "mailto:#{place.email}"}= place.email
                       .social
-                        %a{:href => place.facebook}
+                        %a{:href => httpify(place.facebook)}
                           %img{:src => '/img/facebook.png'}
-                        %a{:href => place.twitter}
+                        %a{:href => httpify(place.twitter)}
                           %img{:src => '/img/twitter.png'}
                         %a.email{:href => "mailto:#{place.email}"}
                           %img{:src => '/img/email.png'}

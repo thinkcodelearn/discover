@@ -19,6 +19,11 @@ module Discover
         def topic_path(audience, topic)
           ['/', audience.slug, '/', topic.slug].join
         end
+
+        def httpify(link)
+          return "" if link.nil?
+          link =~ %r{^https?://} ? link : 'http://' + link
+        end
       end
 
       get '/' do
