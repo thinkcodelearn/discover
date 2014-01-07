@@ -14,13 +14,6 @@ $signature: 'ITCGoudySansW01-BlackIt';
   }
 }
 
-.dt-search-icon {
-  opacity: 0.6;
-  position: absolute;
-  top: 5px;
-  left: 7px;
-}
-
 body {
   background: white;
 }
@@ -71,6 +64,19 @@ body {
     background: white;
     width: 100%;
     margin: -20px 15px;
+  }
+  .right-column-content {
+
+    form {
+      position: relative;
+    }
+
+    .dt-search-icon {
+      opacity: 0.6;
+      position: absolute;
+      top: 5px;
+      left: 7px;
+    }
   }
 }
 
@@ -245,22 +251,18 @@ body {
 }
 
 @media (max-width: 767px) {
-  .map-page {
-    padding: 20px 0px;
+  .map-page .column {
+    display: none !important;
   }
-  .column {
-    #map {
-      height: 500px !important;
+  .right-column {
+    padding-left: 10px !important;
+
+    .right-column-heading {
+      position: absolute;
+      top: 0px;
+      left: 20px;
+      margin: 0px !important;
     }
-    position: relative !important;
-    height: 500px !important;
-    margin-top: 25px;
-  }
-  .right-column-heading {
-    position: absolute;
-    top: 0px;
-    left: 20px;
-    margin: 0px !important;
   }
 
   .dt-logo {

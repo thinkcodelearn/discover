@@ -27,6 +27,8 @@
         });
     .span4.right-column
       .right-column-content
+        %h3.dt-topic-name.visible-phone
+          = @topic.name
         %form
           .dt-search-icon
             %i.icon-search
@@ -34,7 +36,7 @@
 
         .well
           feature
-        %h3.dt-topic-name
+        %h3.dt-topic-name.hidden-phone
           = @topic.name
         #places.accordion
           - if @topic.places.empty?
