@@ -17,5 +17,15 @@ module Discover
       expect(Place.new.lat).to eq(Place::DEFAULT[:lat])
       expect(Place.new.lng).to eq(Place::DEFAULT[:lng])
     end
+
+    it 'auto-adds https to links if not there' do
+      place = Place.new
+      place.url = "http://google.com"
+      expect(place.url).to eq("http://google.com")
+      place.url = "https://google.com"
+      expect(place.url).to eq("https://google.com")
+      place.url = "google.com"
+      expect(place.url).to eq("http://google.com")
+    end
   end
 end

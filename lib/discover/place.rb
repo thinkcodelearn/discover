@@ -17,5 +17,15 @@ module Discover
     def with_slug(new_slug)
       self.class.new(name, new_slug, information, lat, lng, address, telephone, url, email, facebook, twitter)
     end
+
+    def url; httpify(self[:url]); end
+    def facebook; httpify(self[:facebook]); end
+    def twitter; httpify(self[:twitter]); end
+
+    private
+
+    def httpify(link)
+      link =~ %r{^https?://} ? link : 'http://' + link
+    end
   end
 end
