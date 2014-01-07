@@ -27,12 +27,10 @@
         });
     .span4.right-column
       .right-column-content
-
         %form
-          .input-append
-            %input.input-xlarge{:type => "text", :placeholder => "What are you looking for?"}
-            %button.btn{:type => "button"}
-              %i.icon-search
+          .dt-search-icon
+            %i.icon-search
+          %input.input-block-level{:type => "text", :placeholder => "What are you looking for?", :style => 'padding-left: 25px'}
 
         .well
           feature
