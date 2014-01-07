@@ -11,7 +11,15 @@ xml.feed :xmlns => 'http://www.w3.org/2005/Atom', :'xmlns:georss' => 'http://www
       xml.title place.name
       xml.id topic_path(@audience, @topic) + '/' + index.to_s
       xml.updated Time.now.xmlschema
-      xml.summary "test"
+      xml.description do |d|
+        d.cdata! <<-EOF
+          <div class='dt-marker-description'>
+            <img align='right' src='#{place.image}'/>
+            <div class='dt-information'>#{place.address}</div>
+            <div class='dt-url'><a href='#{place.url}'>#{place.url}</a></div>
+          </div>
+        EOF
+      end
       xml.tag! :'georss:point', [place.lat, place.lng].join(' ')
     end
   end

@@ -22,9 +22,29 @@
             new OpenLayers.Projection("EPSG:4326"),
               map.getProjectionObject()), 14);
 
-          var places = new OpenLayers.Layer.GeoRSS('DT places', '#{topic_path(@audience, @topic) + '.atom'}');
+          var places = new OpenLayers.Layer.GeoRSS('DT places', '#{topic_path(@audience, @topic) + '.atom'}', {popupSize: new OpenLayers.Size(250, 125)});
           map.addLayer(places);
+          places.events.register("loadend", places, setOverlayIcons);
         });
+
+        function setOverlayIcons() {
+          for (var i=0; i< this.features.length; i++) {
+            console.log(i);
+            var feature = this.features[i];
+            var size   = new OpenLayers.Size(20, 30);
+            var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+            var icon   = new OpenLayers.Icon('/img/marker-'+i+'.gif',size,offset);
+            var newdata = feature.data;
+            newdata.icon = icon;
+            var newfeature = new OpenLayers.Feature(this, feature.lonlat, newdata);
+            var marker = newfeature.createMarker();
+            marker.events.register('click', newfeature,this.markerClick);
+            this.features[i] = newfeature;
+            this.addMarker(marker);
+            this.removeMarker(feature.marker);
+          }
+        }
+
     .span4.right-column
       .right-column-content
         %h3.dt-topic-name.visible-phone
@@ -46,7 +66,7 @@
               .place.accordion-group.vcard
                 %h4.accordion-heading.name
                   %a.accordion-toggle{:href => "#collapse#{index}", :'data-toggle' => 'collapse', :'data-parent' => '#places'}
-                    %img.dt-marker{:src => 'http://openlayers.org/api/img/marker.png'}
+                    %img.dt-marker{:src => "/img/marker-#{index}.gif", :width => '25'}
                     .dt-place-place-name.fn.org
                       = place.name
                 %div{:id => "collapse#{index}", :class => "accordion-body collapse #{index != 0 ? 'in':''}"}

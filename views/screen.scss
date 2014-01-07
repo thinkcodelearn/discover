@@ -47,6 +47,24 @@ body {
         bottom: 0px;
         left: 0px;
         right: 0px;
+
+        .olPopup {
+          border-radius: 10px;
+          padding: 10px;
+        }
+        .olLayerGeoRSSClose {
+          display: none;
+        }
+
+        .dt-marker-description {
+          overflow: scroll;
+          padding: 10px 0;
+          img {
+            width: 60px;
+            height: 60px;
+            padding: 0px 0px 5px 5px;
+          }
+        }
       }
     }
   }
